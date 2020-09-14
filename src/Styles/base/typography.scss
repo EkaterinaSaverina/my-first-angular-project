@@ -1,0 +1,107 @@
+// h1
+.page-title-xxl {
+    @include font (44px, bold, normal, 54px);
+    font-family: sans-serif;
+    letter-spacing: 1px;
+  
+    @include content-width-l {
+      @include font (40px, bold, normal, 54px);
+    }
+  
+    @include content-width-m {
+      @include font (38px, bold, normal, 50px);
+    }
+  
+    @include tablet-width {
+      @include font (30px, bold, normal, 50px);
+    }
+  
+    @include mobile-width {
+      @include font (22px, bold, normal, 35px);
+    }
+  }
+  // h2
+  .page-title-xl {
+    @include font (36px, bold, normal, 54px);
+    font-family: sans-serif;
+    letter-spacing: 1px;
+  
+    @include content-width-m {
+      @include font (34px, bold, normal, 54px);
+    }
+  
+    @include tablet-width {
+      @include font (26px, bold, normal, 44px);
+    }
+  
+    @include mobile-width {
+      @include font (20px, bold, normal, 35px);
+    }
+  }
+  // h3
+  .page-title-l {
+    @include font (34px, bold, normal, 51px);
+    font-family: sans-serif;
+    letter-spacing: 1px;
+  
+    @include content-width-m {
+      @include font (32px, bold, normal, 51px);
+    }
+  
+    @include tablet-width {
+      @include font (24px, bold, normal, 44px);
+    }
+  
+    @include mobile-width {
+      @include font (22px, bold, normal, 30px);
+    }
+  }
+  // h4
+  .page-title-m {
+    @include font (22px, 600, normal, 33px);
+    font-family: sans-serif;
+    letter-spacing: 1px;
+  
+    @include content-width-m {
+      @include font (20px, 600, normal, 33px);
+    }
+  
+    @include tablet-width {
+      @include font (16px, 600, normal, 33px);
+    }
+  
+    @include mobile-width {
+      @include font (14px, 600, normal, 30px);
+    }
+  }
+  // h5
+  .page-title-xs {
+    @include font (20px, 900, normal, 30px);
+    font-family: sans-serif;
+  
+    @include content-width-m {
+      @include font (18px, 900, normal, 30px);
+    }
+  
+    @include tablet-width {
+      @include font (14px, 900, normal, 30px);
+    }
+  }
+  // h6
+  .page-title-s {
+    @include font (16px, bold, normal, 26px);
+    font-family: sans-serif;
+    letter-spacing: 1px;
+  }
+  
+  p,
+  li,
+  a,
+  button,
+  input,
+  figure,
+  span {
+    @include font (18px, normal, normal, 20px);
+    font-family: sans-serif;
+  }
+  

@@ -1,0 +1,56 @@
+@mixin font ($size, $weight, $style, $height) {
+  font-size: $size;
+  font-weight: $weight;
+  font-style: $style;
+  line-height: $height;
+}
+
+@mixin content-width-l {
+  @media (max-width: $content-width-l) {
+    @content;
+  }
+}
+
+@mixin content-width-m {
+  @media (max-width: $content-width-m) {
+    @content;
+  }
+}
+
+@mixin tablet-width {
+  @media (max-width: $tablet-width) {
+    @content;
+  }
+}
+
+@mixin mobile-width {
+  @media (max-width: $mobile-width) {
+    @content;
+  }
+}
+
+@mixin mobile-width-small {
+  @media (max-width: $mobile-width-small) {
+    @content;
+  }
+}
+
+@mixin listWrapper {
+  background-color: $color-background-list;
+  border-radius: 3px;
+  max-width: $list-size;
+  width: 100%;
+  margin: 20px;
+}
+
+@mixin list-card-details {
+  background-color: $color-second-text;
+  border-radius: 3px;
+  margin: 20px;
+  padding: 10px;
+}
+
+@mixin bg-rules {
+  background-repeat: no-repeat;
+  background-size: contain;
+}

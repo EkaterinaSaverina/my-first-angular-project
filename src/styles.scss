@@ -1,1 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+// Variables
+@import "./styles/variables/colors";
+@import "./styles/variables/sizes";
+
+// Mixins
+@import "./styles/utils/mixins";
+
+// Base styles
+@import "./styles/base/reset";
+@import "./styles/base/typography";

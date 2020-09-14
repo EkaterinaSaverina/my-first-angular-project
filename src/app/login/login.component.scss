@@ -1,0 +1,79 @@
+@import '../../Styles/utils/mixins.scss';
+@import '../../Styles/variables/colors.scss';
+  
+  .registration {
+    margin: 70px auto 0;
+    max-width: 600px;
+  
+    &-tabs {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding-bottom: 10px;
+  
+      &-tab {
+        margin-bottom: 10px;
+        padding: 10px;
+        width: 45%;
+        border: 1px solid $color-background-board-button;
+        border-radius: 3px;
+        text-align: center;
+        opacity: 0.4;
+        cursor: pointer;
+        transition: 0.3s;
+  
+        &:hover {
+          background: $color-background-board-button;
+          transition: 0.3s;
+        }
+      }
+  
+      .active-tab {
+        opacity: 1;
+        background: $color-background-board-button;
+        border-bottom: 3px solid $color-background-brand;
+      }
+    }
+
+    .registration-form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    
+      &-input,
+      &-button {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 15px;
+        border: 1px solid $color-background-brand-button;
+        border-radius: 2px;
+      }
+    
+      &-input {
+        transition: 0.3s;
+    
+        &:hover {
+          background: $color-background-board-button;
+          transition: 0.3s;
+        }
+      }
+    
+      &-button {
+        margin-top: 40px;
+        background: $color-background-board;
+        color: $color-second-text;
+        transition: 0.3s;
+    
+        &:hover {
+          background: $color-background-brand;
+          transition: 0.3s;
+        }
+      }
+    
+      &-label {
+        @include font (14px, normal, normal, 20px);
+        margin: 20px 0 10px;
+        color: $color-text;
+      }
+    }
+  }
