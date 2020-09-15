@@ -6,13 +6,19 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  @Input() title: string;
+  
+  logIn: boolean = true;
+  email = 'fff';
 
-  email: string;
+  @Input() title: string;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  changeActivity(isLogin:boolean): void {
+    this.logIn = isLogin;
   }
 
 }
