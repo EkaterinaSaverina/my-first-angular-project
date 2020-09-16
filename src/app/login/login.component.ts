@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { UsersService } from '../users.service';
 
 @Component({
   selector: 'app-login',
@@ -8,10 +9,13 @@ import { Component, Input, OnInit } from '@angular/core';
 export class LoginComponent implements OnInit {
   
   logIn: boolean = true;
+  public users: Array<any>;
 
   @Input() title: string;
 
-  constructor() { }
+  constructor(private usersService: UsersService) { 
+    this.users = usersService.getUsers();
+  }
 
   ngOnInit(): void {
   }
