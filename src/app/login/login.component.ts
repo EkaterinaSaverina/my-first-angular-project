@@ -8,7 +8,6 @@ import { Component, Input, OnInit } from '@angular/core';
 export class LoginComponent implements OnInit {
   
   logIn: boolean = true;
-  email = 'fff';
 
   @Input() title: string;
 
