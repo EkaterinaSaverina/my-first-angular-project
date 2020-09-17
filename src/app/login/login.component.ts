@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { promise } from 'protractor';
-import { UsersService } from '../users.service';
+
+import { UsersService } from '../core/services/users.service';
+import { User } from '../core/model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -8,21 +10,22 @@ import { UsersService } from '../users.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
-  logIn: boolean = true;
-  // email = 'fff';
-  public users: Array<any>;
-  email: string
-  password: string
-
   @Input() title: string;
+
+  logIn = true;
+  users: User[];
+  email: string;
+  password: string;
+
+  currentUser$: Observable<User>;
 
   constructor(private usersService: UsersService) {
     this.users = usersService.getUsers();
+
+    this.currentUser$ = usersService.user$;
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit() {}
 
   changeActivity(isLogin: boolean): void {
     this.logIn = isLogin;
