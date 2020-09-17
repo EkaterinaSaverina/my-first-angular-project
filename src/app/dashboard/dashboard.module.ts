@@ -2,17 +2,17 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { LoginComponent } from './login.component';
+import { DashboardComponent } from './dashboard.component';
 import { SharedModule } from '../shared/shared.module';
-import { LoginRoutingModule } from './login-routing.module';
+import { DashboardRoutingModule } from './dashboard-routing.module';
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [DashboardComponent],
   imports: [
     CommonModule,
     SharedModule,
     RouterModule,
-    LoginRoutingModule
+    DashboardRoutingModule
   ]
 })
-export class LoginModule { }
+export class DashboardModule { }

@@ -1,5 +1,7 @@
 <p>{{(currentUser$ | async)?.firstName}}</p>
 
+<a [routerLink]="['/dashboard']">Go to dashboard</a>
+
 <div class="registration">
 
     <ul id="registration-tabs" class="registration-tabs">
@@ -21,7 +23,7 @@
         <input type="text" name="email" class="registration-form-input" placeholder="Password..." />
 
         <button *ngIf="logIn" class="registration-form-button" type="submit" (click)="login()">Log In</button>
-        <button *ngIf="!logIn" class="registration-form-button" type="submit">Register</button>
+        <button *ngIf="!logIn" class="registration-form-button" type="submit" (click)="register()">Register</button>
     </form>
 
     <ul>

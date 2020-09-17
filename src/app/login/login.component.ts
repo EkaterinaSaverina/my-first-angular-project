@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { UsersService } from '../core/services/users.service';
-import { User } from '../core/model';
+import { UserRegistered } from '../core/model';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -10,22 +10,22 @@ import { Observable } from 'rxjs';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  @Input() title: string;
 
   logIn = true;
-  users: User[];
+  users: UserRegistered[];
   email: string;
+  name: string;
   password: string;
 
-  currentUser$: Observable<User>;
+  currentUser$: Observable<UserRegistered>;
 
   constructor(private usersService: UsersService) {
-    this.users = usersService.getUsers();
+    // this.users = usersService.getUsers();
 
     this.currentUser$ = usersService.user$;
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   changeActivity(isLogin: boolean): void {
     this.logIn = isLogin;
@@ -33,6 +33,10 @@ export class LoginComponent implements OnInit {
 
   async login(event: Event): Promise<void> {
     const response = await this.usersService.login(this.email, this.password);
+  }
+
+  async register(event: Event): Promise<void> {
+    const response = await this.usersService.register(this.email, this.name, this.password);
   }
 
 }
