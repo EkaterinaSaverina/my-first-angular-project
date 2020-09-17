@@ -11,6 +11,7 @@
 
     <form class="registration-form" id="form">
         <span class="registration-form-label">Please enter your email</span>
+        <!-- <input type="text" name="email" class="registration-form-input" [(ngModel)]="email" /> -->
         <input type="text" name="email" class="registration-form-input" placeholder="Email..." />
 
         <span *ngIf="!logIn" class="registration-form-label">Please enter your login</span>
@@ -19,7 +20,7 @@
         <span class="registration-form-label">Please enter your password</span>
         <input type="text" name="email" class="registration-form-input" placeholder="Password..." />
 
-        <button *ngIf="logIn" class="registration-form-button" type="submit">Log In</button>
+        <button *ngIf="logIn" class="registration-form-button" type="submit" (click)="login()">Log In</button>
         <button *ngIf="!logIn" class="registration-form-button" type="submit">Register</button>
     </form>
 
