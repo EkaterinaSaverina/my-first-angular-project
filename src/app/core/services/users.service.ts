@@ -22,7 +22,7 @@ export class UsersService {
   }
 
   login(email: string, password: string): Promise<UserRegistered> {
-    const path = `${APIUrl}/login`;
+    const path = `${APIUrl}/auth/sigin`;
     const body = { email, password };
     return this.http.post<UserRegistered>(path, body)
       .pipe(map((result) => {
@@ -33,7 +33,7 @@ export class UsersService {
   }
 
   register(email: string, name: string, password: string): Promise<UserNew> {
-    const path = `${APIUrl}/register`;
+    const path = `${APIUrl}/auth/sigup`;
     const body = { email, name, password };
     return this.http.post<UserNew>(path, body)
       .pipe(map((result) => {
