@@ -1,53 +1,43 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
-import { APIUrl } from '../constants';
-import { UserRegistered } from '../model';
-import { UserNew } from "../model"
+import { UserNew } from '../models';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UsersService {
-  private _user$ = new BehaviorSubject<UserRegistered>(null);
+export class UsersService extends ApiService {
+  private user: UserNew;
+  private isAuthorizedSubject = new BehaviorSubject<boolean>(undefined);
 
-  public readonly user$ = this._user$.asObservable();
-
-  constructor(private http: HttpClient) { }
-
-  get user(): UserRegistered {
-    return this._user$.getValue();
+  constructor(http: HttpClient) {
+    super(http);
+    
+    const isAuthorized = !!localStorage.getItem('token');
+    this.isAuthorizedSubject.next(isAuthorized);
   }
 
-  login(email: string, password: string): Promise<UserRegistered> {
-    const path = `${APIUrl}/auth/sigin`;
+  isAuthorized(): Observable<boolean> {
+    return this.isAuthorizedSubject.asObservable();
+  }
+
+  getUser(): UserNew {
+    return this.user;
+  }
+
+  async login(email: string, password: string): Promise<UserNew> {
     const body = { email, password };
-    return this.http.post<UserRegistered>(path, body)
-      .pipe(map((result) => {
-        this._user$.next(result);
-        return result;
-      }))
-      .toPromise();
+    const { user } = await this.postWithoutToken('auth/sigin', body);
+    this.isAuthorizedSubject.next(true);
+    return this.user = user;
   }
 
-  register(email: string, name: string, password: string): Promise<UserNew> {
-    const path = `${APIUrl}/auth/sigup`;
+  async register(email: string, name: string, password: string): Promise<UserNew> {
     const body = { email, name, password };
-    return this.http.post<UserNew>(path, body)
-      .pipe(map((result) => {
-        this._user$.next(result);
-        return result;
-      }))
-      .toPromise();
-  }
-
-  public async getUsers(): Promise<UserRegistered[]> {
-    return [
-      { email: 'Ivan', password: 'Sidorov' },
-      { email: 'Vasya', password: 'Vasilev' },
-      { email: 'Ilya', password: 'Mogilev' }
-    ];
+    const { user } = await this.post('auth/sigup', body);
+    this.isAuthorizedSubject.next(true);
+    return this.user = user;
   }
 }

@@ -1,19 +1,14 @@
-<!-- <p>{{(currentUser$ | async)?.firstName}}</p> -->
-
 <a [routerLink]="['/dashboard']">Go to dashboard</a>
 
 <div class="registration">
 
     <ul id="registration-tabs" class="registration-tabs">
-        <li data-tab="0" class="registration-tabs-tab" (click)="changeActivity(true)" [class.active-tab]="logIn">Sign In
-        </li>
-        <li data-tab="1" class="registration-tabs-tab" (click)="changeActivity(false)" [class.active-tab]="!logIn">Sign
-            Up</li>
+        <li class="registration-tabs-tab" (click)="makeActive(true)" [class.active-tab]="logIn">Sign In </li>
+        <li class="registration-tabs-tab" (click)="makeActive(false)" [class.active-tab]="!logIn">Sign Up</li>
     </ul>
 
     <form class="registration-form" id="form">
         <span class="registration-form-label">Please enter your email</span>
-        <!-- <input type="text" name="email" class="registration-form-input" [(ngModel)]="email" /> -->
         <input type="text" name="email" class="registration-form-input" placeholder="Email..." />
 
         <span *ngIf="!logIn" class="registration-form-label">Please enter your login</span>
@@ -25,11 +20,5 @@
         <button *ngIf="logIn" class="registration-form-button" type="submit" (click)="login()">Log In</button>
         <button *ngIf="!logIn" class="registration-form-button" type="submit" (click)="register()">Register</button>
     </form>
-
-    <ul>
-        <li *ngFor="let user of users">
-            {{user.firstName}} {{user.lastName}}
-        </li>
-    </ul>
 
 </div>
