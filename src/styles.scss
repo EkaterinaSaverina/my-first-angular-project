@@ -8,3 +8,6 @@
 // Base styles
 @import "./styles/base/reset";
 @import "./styles/base/typography";
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

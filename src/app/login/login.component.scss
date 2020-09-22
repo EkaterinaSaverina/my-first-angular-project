@@ -4,6 +4,7 @@
   .registration {
     margin: 70px auto 0;
     max-width: 600px;
+    width: 100%;
   
     &-tabs {
       display: flex;
@@ -39,7 +40,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-    
+      
       &-input,
       &-button {
         width: 100%;

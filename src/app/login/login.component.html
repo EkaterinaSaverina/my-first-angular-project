@@ -1,26 +1,50 @@
-<p>{{title}}</p>
-
 <div class="registration">
 
-    <ul id="registration-tabs" class="registration-tabs">
-        <li data-tab="0" class="registration-tabs-tab" (click)="changeActivity(true)" [class.active-tab]="logIn">Sign In
-        </li>
-        <li data-tab="1" class="registration-tabs-tab" (click)="changeActivity(false)" [class.active-tab]="!logIn">Sign
-            Up</li>
-    </ul>
+    <div *ngIf="errors">
+        <!-- / -->
+    </div>
 
-    <form class="registration-form" id="form">
-        <span class="registration-form-label">Please enter your email</span>
-        <input type="text" name="email" class="registration-form-input" placeholder="Email..." />
+    <form [formGroup]="formGroup" class="registration-form" (submit)="submitForm()">
 
-        <span *ngIf="!logIn" class="registration-form-label">Please enter your login</span>
-        <input *ngIf="!logIn" type="text" name="email" class="registration-form-input" placeholder="Login..." />
+        <mat-tab-group dynamicHeight (selectedTabChange)="setActiveTab($event.index)">
+            <mat-tab label="Sign In">
+                <mat-form-field>
+                    <mat-label>Please enter your email</mat-label>
+                    <input matInput formControlName="email">
+                    <mat-error *ngIf="isEmailEmpty">Email Requied</mat-error>
+                </mat-form-field>
 
-        <span class="registration-form-label">Please enter your password</span>
-        <input type="text" name="email" class="registration-form-input" placeholder="Password..." />
+                <mat-form-field>
+                    <mat-label>Please enter your password</mat-label>
+                    <input matInput type="password" formControlName="password">
+                </mat-form-field>
 
-        <button *ngIf="logIn" class="registration-form-button" type="submit">Log In</button>
-        <button *ngIf="!logIn" class="registration-form-button" type="submit">Register</button>
+                <button mat-raised-button color="primary" type="submit" [disabled]="formGroup.invalid">Log In</button>
+            </mat-tab>
+
+            <mat-tab label="Sign Up">
+
+                <mat-form-field>
+                    <mat-label>Please enter your email</mat-label>
+                    <input matInput formControlName="email">
+                    <mat-error *ngIf="isEmailEmpty">Email Requied</mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Please enter your name</mat-label>
+                    <input matInput formControlName="name">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Please enter your password</mat-label>
+                    <input matInput type="password" formControlName="password">
+                </mat-form-field>
+
+                <button mat-raised-button type="submit">Register</button>
+            </mat-tab>
+        </mat-tab-group>
     </form>
+
+    <pre>{{ formGroup.value | json }}</pre>
 
 </div>
