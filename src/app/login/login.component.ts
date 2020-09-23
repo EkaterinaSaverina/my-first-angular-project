@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { MatTabGroup } from '@angular/material/tabs';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +7,6 @@ import { MatTabGroup } from '@angular/material/tabs';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  // @ViewChild(MatTabGroup) tabGroup: MatTabGroup;
 
   formGroup: FormGroup;
   errors: string[];
