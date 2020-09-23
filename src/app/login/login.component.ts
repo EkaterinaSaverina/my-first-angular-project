@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 
 import { UsersService } from '../core/services';
-import { UserNew } from '../core/models';
 
 @Component({
   selector: 'app-login',
@@ -15,8 +13,6 @@ export class LoginComponent implements OnInit {
   email: string;
   name: string;
   password: string;
-
-  currentUser$: Observable<UserNew>;
 
   constructor(private usersService: UsersService) { }
 
@@ -33,5 +29,4 @@ export class LoginComponent implements OnInit {
   async register(event: Event): Promise<void> {
     const response = await this.usersService.register(this.email, this.name, this.password);
   }
-
 }

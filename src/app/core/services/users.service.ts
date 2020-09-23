@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { UserNew } from '../models';
 import { ApiService } from './api.service';
+import { UserNew } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -29,15 +29,14 @@ export class UsersService extends ApiService {
 
   async login(email: string, password: string): Promise<UserNew> {
     const body = { email, password };
-    const { user } = await this.postWithoutToken('auth/sigin', body);
+    const { user } = await this.postWithoutToken('auth/signin', body);
     this.isAuthorizedSubject.next(true);
     return this.user = user;
   }
 
   async register(email: string, name: string, password: string): Promise<UserNew> {
     const body = { email, name, password };
-    const { user } = await this.post('auth/sigup', body);
-    this.isAuthorizedSubject.next(true);
+    const { user } = await this.postWithoutToken('auth/signup', body);
     return this.user = user;
   }
 }
