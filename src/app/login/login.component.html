@@ -4,43 +4,51 @@
         <!-- / -->
     </div>
 
-    <form [formGroup]="formGroup" class="registration-form" (submit)="submitForm()">
-
-        <mat-tab-group dynamicHeight (selectedTabChange)="setActiveTab($event.index)">
+    <form [formGroup]="formGroup" (submit)="submitForm()">
+        <mat-tab-group mat-align-tabs="center" dynamicHeight (selectedTabChange)="setActiveTab($event.index)">
             <mat-tab label="Sign In">
-                <mat-form-field>
-                    <mat-label>Please enter your email</mat-label>
-                    <input matInput formControlName="email">
-                    <mat-error *ngIf="isEmailEmpty">Email Requied</mat-error>
-                </mat-form-field>
-
-                <mat-form-field>
-                    <mat-label>Please enter your password</mat-label>
-                    <input matInput type="password" formControlName="password">
-                </mat-form-field>
-
-                <button mat-raised-button color="primary" type="submit" [disabled]="formGroup.invalid">Log In</button>
+                <p>
+                    <mat-form-field class="registration-input">
+                        <mat-label>Please enter your email</mat-label>
+                        <input matInput formControlName="email">
+                        <mat-error *ngIf="isEmailEmpty">Email Requied</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field class="registration-input">
+                        <mat-label>Please enter your password</mat-label>
+                        <input matInput type="password" formControlName="password">
+                    </mat-form-field>
+                </p>
+                <p>
+                    <button mat-raised-button color="primary" type="submit" [disabled]="formGroup.invalid"
+                        class="registration-button">Log
+                        In</button>
+                </p>
             </mat-tab>
-
             <mat-tab label="Sign Up">
-
-                <mat-form-field>
-                    <mat-label>Please enter your email</mat-label>
-                    <input matInput formControlName="email">
-                    <mat-error *ngIf="isEmailEmpty">Email Requied</mat-error>
-                </mat-form-field>
-
-                <mat-form-field>
-                    <mat-label>Please enter your name</mat-label>
-                    <input matInput formControlName="name">
-                </mat-form-field>
-
-                <mat-form-field>
-                    <mat-label>Please enter your password</mat-label>
-                    <input matInput type="password" formControlName="password">
-                </mat-form-field>
-
-                <button mat-raised-button type="submit">Register</button>
+                <p>
+                    <mat-form-field class="registration-input">
+                        <mat-label>Please enter your email</mat-label>
+                        <input matInput formControlName="email">
+                        <mat-error *ngIf="isEmailEmpty">Email Requied</mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field class="registration-input">
+                        <mat-label>Please enter your name</mat-label>
+                        <input matInput formControlName="name">
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field class="registration-input">
+                        <mat-label>Please enter your password</mat-label>
+                        <input matInput type="password" formControlName="password">
+                    </mat-form-field>
+                </p>
+                <p>
+                    <button mat-raised-button type="submit" class="registration-button">Register</button>
+                </p>
             </mat-tab>
         </mat-tab-group>
     </form>
