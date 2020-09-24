@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
-import { UsersService } from '../core/services';
+import { AuthService } from '../core/services';
+import { User } from '../core/models/user.model';
 
 @Component({
   selector: 'app-login',
@@ -11,15 +13,15 @@ import { UsersService } from '../core/services';
 export class LoginComponent implements OnInit {
 
   logIn = true;
-  email: string;
-  name: string;
-  password: string;
   formGroup: FormGroup;
   errors: string[];
 
   private isLogin = true;
 
-  constructor(private usersService: UsersService) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) { }
 
   get isEmailEmpty(): boolean {
     return this.formGroup.get('email').hasError('required');
@@ -37,11 +39,14 @@ export class LoginComponent implements OnInit {
 
   async submitForm(): Promise<void> {
     try {
-      // call api
-      console.log(this.formGroup.value);
-    } 
+      if (this.isLogin) {
+        await this.login();
+      } else {
+        await this.register();
+      }
+      this.router.navigate(['/dashboard']);
+    }
     catch (error) {
-      // display errors
       this.errors = error;
     }
   }
@@ -55,5 +60,17 @@ export class LoginComponent implements OnInit {
     if (!this.isLogin) {
       this.formGroup.addControl('name', new FormControl('', { validators: [Validators.required] }));
     }
+  }
+
+  async login(): Promise<void> {
+    const data = this.formGroup.value;
+
+    await this.authService.login(data as User);
+  }
+
+  async register(): Promise<void> {
+    const data = this.formGroup.value;
+
+    await this.authService.register(data as User);
   }
 }

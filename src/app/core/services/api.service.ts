@@ -1,15 +1,13 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 
 import { APIUrl } from '../constants';
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-
   private options: {
     headers: HttpHeaders;
   }
@@ -35,24 +33,24 @@ export class ApiService {
 
   postWithoutToken<T>(path: string, body: any): Promise<T> {
     return this.http.post(`${APIUrl}/${path}`, body)
-    .pipe(map((response: any) => {
-      if(response.success && response.data.token) {
-        this.setToken(response.data.token);
-      }
-      return response.data as T;
-    }))
-    .toPromise();
+      .pipe(map((response: any) => {
+        if (response.success && response.data.token) {
+          this.setToken(response.data.token);
+        }
+        return response.data as T;
+      }))
+      .toPromise();
   }
 
   post<T>(path: string, body: any): Promise<T> {
     return this.http.post(`${APIUrl}/${path}`, body, this.options)
-    .pipe(map((response: any) => response.data as T))
-    .toPromise();
+      .pipe(map((response: any) => response.data as T))
+      .toPromise();
   }
 
   get<T>(path: string): Promise<T> {
     return this.http.get(`${APIUrl}/${path}`, this.options)
-    .pipe(map((response: any) => response.data as T))
-    .toPromise();
+      .pipe(map((response: any) => response.data as T))
+      .toPromise();
   }
 }

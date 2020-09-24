@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { isBoolean } from 'lodash';
 
-import { UsersService } from '../services';
+import { AuthService } from '../services';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ import { UsersService } from '../services';
 export class AuthGuard implements CanActivate {
 
   constructor(
-    private usersService: UsersService,
+    private authService: AuthService,
     private router: Router,
   ) { }
 
@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> {
-    return this.usersService.isAuthorized()
+    return this.authService.isAuthorized()
       .pipe(
         filter(isAuth => {
           return isBoolean(isAuth);
