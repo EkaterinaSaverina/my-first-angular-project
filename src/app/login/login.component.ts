@@ -22,11 +22,11 @@ export class LoginComponent implements OnInit {
     this.logIn = isLogin;
   }
 
-  async login(event: Event): Promise<void> {
+  async login(): Promise<void> {
     const response = await this.usersService.login(this.email, this.password);
   }
 
-  async register(event: Event): Promise<void> {
+  async register(): Promise<void> {
     const response = await this.usersService.register(this.email, this.name, this.password);
   }
 }
