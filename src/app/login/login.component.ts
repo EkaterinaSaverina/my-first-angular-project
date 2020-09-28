@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
-import { throwError } from 'rxjs';
 
 import { AuthService } from '../core/services';
 import { User } from '../core/models';
@@ -32,7 +30,6 @@ export class LoginComponent implements OnInit {
 
   setActiveTab(index: number): void {
     this.isLogin = index == 0;
-
     this.initializeForm();
   }
 
@@ -59,17 +56,6 @@ export class LoginComponent implements OnInit {
     if (!this.isLogin) {
       this.formGroup.addControl('name', new FormControl('', { validators: [Validators.required] }));
     }
-  }
-
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      console.error('An error occurred:', error.error.message);
-    } else {
-      console.error(
-        `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
-    }
-    return throwError('Something bad happened; please try again later.');
   }
 
   async login(): Promise<void> {

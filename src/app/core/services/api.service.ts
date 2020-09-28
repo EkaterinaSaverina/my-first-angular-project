@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
+import { throwError } from 'rxjs';
 
 import { APIUrl } from '../constants';
 
@@ -31,20 +33,32 @@ export class ApiService {
     localStorage.removeItem('token');
   }
 
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      console.error('An error occurred:', error.error.message);
+    }
+    return throwError(error.error.message);
+  }
+
   postWithoutToken<T>(path: string, body: any): Promise<T> {
     return this.http.post(`${APIUrl}/${path}`, body)
-      .pipe(map((response: any) => {
-        if (response.success && response.data.token) {
-          this.setToken(response.data.token);
-        }
-        return response.data as T;
-      }))
+      .pipe(
+        catchError(this.handleError),
+        map((response: any) => {
+          if (response.success && response.data.token) {
+            this.setToken(response.data.token);
+          }
+          return response.data as T;
+        })
+      )
       .toPromise();
   }
 
   post<T>(path: string, body: any): Promise<T> {
     return this.http.post(`${APIUrl}/${path}`, body, this.options)
-      .pipe(map((response: any) => response.data as T))
+      .pipe(
+        map((response: any) => response.data as T)
+        )
       .toPromise();
   }
 
