@@ -10,20 +10,20 @@ const routes: Routes = [
     redirectTo: '/dashboard',
     pathMatch: 'full',
   },
-  { 
-    path: 'login', 
-    loadChildren: () => 
-    import('./login/login.module').then(m => m.LoginModule),
+  {
+    path: 'login',
+    loadChildren: () =>
+      import('./login/login.module').then(m => m.LoginModule),
   },
-  { 
-    path: 'dashboard', 
+  {
+    path: 'dashboard',
     canActivate: [AuthGuard],
-    loadChildren: () => 
-    import('./dashboard/dashboard.module').then(m => m.DashboardModule),
+    loadChildren: () =>
+      import('./dashboard/dashboard.module').then(m => m.DashboardModule),
   },
-  { 
-    path: '**', 
-    component: PageNotFoundComponent 
+  {
+    path: '**',
+    component: PageNotFoundComponent
   },
 ];
 

@@ -2,9 +2,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
-import { throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 
 import { APIUrl } from '../constants';
+import { getError } from '../utils';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +13,13 @@ import { APIUrl } from '../constants';
 export class ApiService {
   private options: {
     headers: HttpHeaders;
-  }
+  };
 
   constructor(private http: HttpClient) {
     const token = localStorage.getItem('token') || '';
     this.options = {
       headers: new HttpHeaders({
-        'authorization': token
+        authorization: token
       })
     };
   }
@@ -33,11 +34,11 @@ export class ApiService {
     localStorage.removeItem('token');
   }
 
-  private handleError(error: HttpErrorResponse) {
+  private handleError(error: HttpErrorResponse): Observable<Error> {
     if (error.error instanceof ErrorEvent) {
-      console.error('An error occurred:', error.error.message);
+      console.error('An error occurred:', error.error);
     }
-    return throwError(error.error.message);
+    return throwError(getError(error.error.message));
   }
 
   postWithoutToken<T>(path: string, body: any): Promise<T> {
@@ -58,7 +59,7 @@ export class ApiService {
     return this.http.post(`${APIUrl}/${path}`, body, this.options)
       .pipe(
         map((response: any) => response.data as T)
-        )
+      )
       .toPromise();
   }
 

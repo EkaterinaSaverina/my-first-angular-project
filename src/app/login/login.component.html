@@ -1,36 +1,38 @@
 <div class="registration">
 
-    <div *ngIf="errors">
-        {{errors}}
-    </div>
+  <div *ngIf="errorToShow">
+    {{errorToShow}}
+  </div>
 
-    <mat-button-toggle-group class="registration-tabs">
-        <mat-button-toggle checked (click)="isLogin = true" class="registration-tabs">Sign In</mat-button-toggle>
-        <mat-button-toggle (click)="isLogin = false" class="registration-tabs">Sign Up</mat-button-toggle>
-    </mat-button-toggle-group>
+  <mat-button-toggle-group class="registration-tabs">
+    <mat-button-toggle checked class="registration-tabs" (click)="changeForm(true)"> Sign In </mat-button-toggle>
+    <mat-button-toggle (click)="changeForm(false)" class="registration-tabs">Sign Up</mat-button-toggle>
+  </mat-button-toggle-group>
 
-    <form [formGroup]="formGroup" (submit)="submitForm()">
-        <mat-form-field class="registration-input">
-            <mat-label>Please enter your email</mat-label>
-            <input matInput formControlName="email">
-            <mat-error *ngIf="isEmailEmpty">Email Required</mat-error>
-        </mat-form-field>
+  <form [formGroup]="formGroup" (submit)="submitForm()">
+    <mat-form-field class="registration-input">
+      <mat-label>Please enter your email</mat-label>
+      <input matInput formControlName="email">
+      <mat-error *ngIf="isFieldEmpty">This Field Required</mat-error>
+    </mat-form-field>
 
-        <mat-form-field class="registration-input" *ngIf="!isLogin">
-            <mat-label>Please enter your name</mat-label>
-            <input matInput formControlName="name">
-        </mat-form-field>
+    <mat-form-field class="registration-input" *ngIf="!isLogin">
+      <mat-label>Please enter your name</mat-label>
+      <input matInput formControlName="name">
+      <mat-error *ngIf="isFieldEmpty">This Field Required</mat-error>
+    </mat-form-field>
 
-        <mat-form-field class="registration-input">
-            <mat-label>Please enter your password</mat-label>
-            <input matInput type="password" formControlName="password">
-        </mat-form-field>
+    <mat-form-field class="registration-input">
+      <mat-label>Please enter your password</mat-label>
+      <input matInput type="password" formControlName="password">
+      <mat-error *ngIf="isFieldEmpty">This Field Required</mat-error>
+    </mat-form-field>
 
-        <button mat-raised-button color="primary" type="submit" [disabled]="formGroup.invalid"
-            class="registration-button" *ngIf="isLogin">Log In</button>
-            
-        <button mat-raised-button color="accent" type="submit" [disabled]="formGroup.invalid"
-            class="registration-button" *ngIf="!isLogin">Register</button>
-    </form>
+    <button mat-raised-button color="primary" type="submit" [disabled]="formGroup.invalid" class="registration-button"
+      *ngIf="isLogin">Log In</button>
+
+    <button mat-raised-button color="accent" type="submit" [disabled]="formGroup.invalid" class="registration-button"
+      *ngIf="!isLogin">Register</button>
+  </form>
 
 </div>

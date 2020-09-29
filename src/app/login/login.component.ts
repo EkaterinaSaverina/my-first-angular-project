@@ -13,24 +13,15 @@ import { User } from '../core/models';
 export class LoginComponent implements OnInit {
   isLogin = true;
   formGroup: FormGroup;
-  errors: string[];
+  errorToShow: string;
 
   constructor(
     private authService: AuthService,
     private router: Router,
   ) { }
 
-  get isEmailEmpty(): boolean {
-    return this.formGroup.get('email').hasError('required');
-  }
-
-  ngOnInit(): void {
-    this.initializeForm();
-  }
-
-  setActiveTab(index: number): void {
-    this.isLogin = index == 0;
-    this.initializeForm();
+  get isFieldEmpty(): boolean {
+    return this.formGroup.get('email' || 'name' || 'password').hasError('required');
   }
 
   async submitForm(): Promise<void> {
@@ -43,14 +34,23 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/dashboard']);
     }
     catch (error) {
-      this.errors = error;
+      this.errorToShow = error.message;
     }
+  }
+
+  changeForm(isLogin: boolean): void {
+    this.isLogin = isLogin;
+    this.initializeForm();
+  }
+
+  ngOnInit(): void {
+    this.initializeForm();
   }
 
   private initializeForm(): void {
     this.formGroup = new FormGroup({
-      'email': new FormControl('', { validators: [Validators.email, Validators.required] }),
-      'password': new FormControl('', { validators: [Validators.required, Validators.minLength(6)] }),
+      email: new FormControl('', { validators: [Validators.email, Validators.required] }),
+      password: new FormControl('', { validators: [Validators.required, Validators.minLength(6)] }),
     }, { updateOn: 'blur' });
 
     if (!this.isLogin) {
@@ -58,13 +58,13 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  async login(): Promise<void> {
+  private async login(): Promise<void> {
     const data = this.formGroup.value;
 
     await this.authService.login(data as User);
   }
 
-  async register(): Promise<void> {
+  private async register(): Promise<void> {
     const data = this.formGroup.value;
 
     await this.authService.register(data as User);
