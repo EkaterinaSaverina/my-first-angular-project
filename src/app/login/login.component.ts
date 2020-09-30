@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AuthService } from '../core/services';
+import { AuthService, NotificationsService } from '../core/services';
 import { User } from '../core/models';
 
 @Component({
@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
+    private notificationsService: NotificationsService,
   ) { }
 
   get isFieldEmpty(): boolean {
@@ -35,6 +36,7 @@ export class LoginComponent implements OnInit {
     }
     catch (error) {
       this.errorToShow = error.message;
+      this.notificationsService.openSnackBar(this.errorToShow, 'close');
     }
   }
 

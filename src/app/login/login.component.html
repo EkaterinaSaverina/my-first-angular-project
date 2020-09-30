@@ -1,8 +1,6 @@
 <div class="registration">
 
-  <div *ngIf="errorToShow">
-    {{errorToShow}}
-  </div>
+  <div *ngIf="errorToShow"></div>
 
   <mat-button-toggle-group class="registration-tabs">
     <mat-button-toggle checked class="registration-tabs" (click)="changeForm(true)"> Sign In </mat-button-toggle>
@@ -28,11 +26,11 @@
       <mat-error *ngIf="isFieldEmpty">This Field Required</mat-error>
     </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit" [disabled]="formGroup.invalid" class="registration-button"
-      *ngIf="isLogin">Log In</button>
+    <button *ngIf="isLogin" mat-raised-button color="primary" type="submit" [disabled]="formGroup.invalid"
+      class="registration-button">Log In</button>
 
-    <button mat-raised-button color="accent" type="submit" [disabled]="formGroup.invalid" class="registration-button"
-      *ngIf="!isLogin">Register</button>
+    <button *ngIf="!isLogin" mat-raised-button color="accent" type="submit" [disabled]="formGroup.invalid"
+      class="registration-button">Register</button>
   </form>
 
 </div>

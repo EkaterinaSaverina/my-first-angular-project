@@ -20,7 +20,6 @@ export class AppHttpInterceptor implements HttpInterceptor {
       .pipe(
         tap(
           data => {
-            console.log(data);
             this.spinner.hide();
           }
         )
