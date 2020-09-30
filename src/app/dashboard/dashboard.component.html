@@ -1,3 +1,14 @@
-<p>dashboard works!</p>
+<mat-grid-list cols="4" rowHeight="2:1">
+  <mat-grid-tile *ngFor="let board of boards$ | async; trackBy: trackById">
+    <mat-card class="card">
+      <mat-card-header>
+        <mat-card-title>{{ board.title }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-actions>
+        <button mat-button>open</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-grid-tile>
 
-<a [routerLink]="['/login']">Go to login</a>
+  <button mat-button (click)="addBoard()">Add board</button>
+</mat-grid-list>
