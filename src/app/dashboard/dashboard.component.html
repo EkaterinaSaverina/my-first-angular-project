@@ -1,14 +1,29 @@
-<mat-grid-list cols="4" rowHeight="2:1">
+<mat-grid-list cols="4" rowHeight="200px">
   <mat-grid-tile *ngFor="let board of boards$ | async; trackBy: trackById">
     <mat-card class="card">
       <mat-card-header>
         <mat-card-title>{{ board.title }}</mat-card-title>
+        <span class="card-spacer"></span>
+        <mat-icon>close</mat-icon>
       </mat-card-header>
       <mat-card-actions>
         <button mat-button>open</button>
       </mat-card-actions>
     </mat-card>
   </mat-grid-tile>
-
-  <button mat-button (click)="addBoard()">Add board</button>
+  <mat-grid-tile>
+    <mat-card class="card-add">
+      <mat-form-field class="card-input">
+        <mat-label>Please enter board title</mat-label>
+        <input matInput #boardTitle />
+      </mat-form-field>
+      <button
+        mat-stroked-button
+        color="primary"
+        (click)="addBoard(boardTitle.value)"
+      >
+        Add board
+      </button>
+    </mat-card>
+  </mat-grid-tile>
 </mat-grid-list>

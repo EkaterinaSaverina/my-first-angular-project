@@ -1,6 +1,4 @@
 <div class="registration">
-  <div *ngIf="errorToShow"></div>
-
   <mat-button-toggle-group class="registration-tabs">
     <mat-button-toggle
       checked
@@ -10,12 +8,11 @@
       Sign In
     </mat-button-toggle>
     <mat-button-toggle
-      (click)="changeForm(false)"
-      class="registration-tabs"
+    class="registration-tabs"
+    (click)="changeForm(false)"
     >
       Sign Up
-    </mat-button-toggle
-    >
+    </mat-button-toggle>
   </mat-button-toggle-group>
 
   <form [formGroup]="formGroup" (submit)="submitForm()">

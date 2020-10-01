@@ -12,7 +12,6 @@ import { trackById } from '../core/utils';
 })
 export class DashboardComponent implements OnInit {
   boards$: Observable<Board[]>;
-
   trackById = trackById;
 
   constructor(
@@ -21,9 +20,9 @@ export class DashboardComponent implements OnInit {
     this.getBoards();
   }
 
-  async addBoard(): Promise<void> {
-    await this.boardService.addBoard('title');
-    // this.getBoards();
+  async addBoard(boardTitle: string): Promise<void> {
+    await this.boardService.addBoard(boardTitle);
+    this.getBoards();
   }
 
   ngOnInit(): void {
@@ -33,5 +32,4 @@ export class DashboardComponent implements OnInit {
   private getBoards(): void {
     this.boardService.sendBoardsRequest();
   }
-
 }
