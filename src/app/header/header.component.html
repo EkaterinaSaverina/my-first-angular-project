@@ -1,7 +1,7 @@
 <mat-toolbar role="heading" color="primary">
   <span>Trello Clone</span>
   <span class="header-spacer"></span>
-  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="account_circle">
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="account_circle" *ngIf="isAutorized">
     <mat-icon class="header-icon">account_circle</mat-icon>
   </button>
   <mat-menu #menu="matMenu">

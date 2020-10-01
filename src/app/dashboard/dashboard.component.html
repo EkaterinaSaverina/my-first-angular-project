@@ -3,12 +3,13 @@
     <mat-card class="card">
       <mat-card-header>
         <mat-card-title>{{ board.title }}</mat-card-title>
+        <button mat-button>delete</button>
       </mat-card-header>
       <mat-card-actions>
         <button mat-button>open</button>
       </mat-card-actions>
     </mat-card>
   </mat-grid-tile>
-
-  <button mat-button (click)="addBoard()">Add board</button>
 </mat-grid-list>
+<div><input name="title" [(ngModel)]="title" />
+  <button mat-button (click)="addBoard()">Add board</button></div>
