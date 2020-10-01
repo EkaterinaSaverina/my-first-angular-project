@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
       } else {
         await this.register();
       }
-      this.router.navigate(['']);
+      this.router.navigate(['/dashboard']);
     }
     catch (error) {
       this.errorToShow = error.message;

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Board } from '../core/models';
@@ -15,8 +15,6 @@ export class DashboardComponent implements OnInit {
 
   trackById = trackById;
 
-  title: string;
-
   constructor(
     private boardService: BoardService
   ) {
@@ -24,8 +22,8 @@ export class DashboardComponent implements OnInit {
   }
 
   async addBoard(): Promise<void> {
-    await this.boardService.addBoard(this.title);
-    this.getBoards();
+    await this.boardService.addBoard('title');
+    // this.getBoards();
   }
 
   ngOnInit(): void {

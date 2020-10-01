@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 
 import { AuthService } from '../core/services';
 
@@ -11,12 +10,10 @@ import { AuthService } from '../core/services';
 })
 export class HeaderComponent {
 
-  isAutorized: Observable<boolean> = this.authService.isAuthorized();
-
   constructor(
     private authService: AuthService,
     private router: Router,
-  ) {  }
+  ) { }
 
   logOut(): void {
     this.authService.logOut();
