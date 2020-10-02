@@ -1,2 +1,2 @@
-export * from './getError';
+export * from './get-error';
 export * from './track-by';

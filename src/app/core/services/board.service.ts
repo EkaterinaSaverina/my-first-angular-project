@@ -30,4 +30,9 @@ export class BoardService extends ApiService {
     this._boards$.next([...this.boards, { title } as Board]);
     await this.post('boards', { title });
   }
+
+  async deleteBoard(boardId: string): Promise<Board> {
+    console.log(this.boards);
+    return await this.delete(`boards/${boardId}`, { _id: boardId });
+  }
 }

@@ -39,7 +39,7 @@ export class AuthService extends ApiService {
   }
 
   logOut(): void {
-    localStorage.removeItem('token');
+    this.resetToken();
     this.isAuthorizedSubject.next(false);
   }
 }
