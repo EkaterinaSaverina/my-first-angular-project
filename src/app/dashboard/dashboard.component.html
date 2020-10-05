@@ -4,7 +4,7 @@
       <mat-card-header>
         <mat-card-title>{{ board.title }}</mat-card-title>
         <span class="card-spacer"></span>
-        <mat-icon (click)="deleteBoard(boardId)">close</mat-icon>
+        <mat-icon (click)="openDialog(board._id)">close</mat-icon>
       </mat-card-header>
       <mat-card-actions>
         <button mat-button>open</button>

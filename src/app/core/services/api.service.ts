@@ -73,8 +73,8 @@ export class ApiService {
       .toPromise();
   }
 
-  delete<T>(path: string, body: any): Promise<T> {
-    return this.http.delete(`${APIUrl}/${path}`, body)
+  delete<T>(path: string): Promise<T> {
+    return this.http.delete(`${APIUrl}/${path}`, this.options)
       .pipe(
         catchError(this.handleError),
         map((response: any) => response.data as T)
