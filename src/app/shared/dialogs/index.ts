@@ -1,6 +1,6 @@
-import { DialogComponent } from './confirmation-dialog/dialog.component';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 export const dialogsMap = {
-    DialogComponent,
+    ConfirmationDialogComponent,
     // CardComponent
 };

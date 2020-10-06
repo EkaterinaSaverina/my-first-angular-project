@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Board, Dialog } from '../core/models';
+import { Board } from '../core/models';
 import { BoardService, DialogService, NotificationsService } from '../core/services';
 import { trackById } from '../core/utils';
 
@@ -28,7 +28,7 @@ export class DashboardComponent implements OnInit {
     this.getBoards();
   }
 
-  async deleteBoard(boardId: string): Promise<void> {
+  async handleBoardDelete(boardId: string): Promise<void> {
     try {
       await this.boardService.deleteBoard(boardId);
       this.getBoards();
@@ -47,10 +47,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.boards$ = this.boardService.boards$;
-  }
-
-  private handleBoardDelete(boardId: string): void {
-    this.boardService.deleteBoard(boardId);
   }
 
   private getBoards(): void {

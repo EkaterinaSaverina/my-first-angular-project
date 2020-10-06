@@ -5,12 +5,12 @@ import { FormsModule } from '@angular/forms';
 
 import { MaterialModule } from './material.module';
 import { HeaderComponent } from './header/header.component';
-import { DialogComponent } from './dialogs/confirmation-dialog/dialog.component';
+import { ConfirmationDialogComponent } from './dialogs/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    DialogComponent,
+    ConfirmationDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -21,7 +21,7 @@ import { DialogComponent } from './dialogs/confirmation-dialog/dialog.component'
     HttpClientModule,
     MaterialModule,
     HeaderComponent,
-    DialogComponent,
+    ConfirmationDialogComponent,
   ]
 })
 export class SharedModule { }

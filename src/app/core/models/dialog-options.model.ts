@@ -1,5 +1,5 @@
 export enum Dialog {
-    DialogComponent = 'DialogComponent',
+    ConfirmationDialogComponent = 'ConfirmationDialogComponent',
     CardComponent = 'CardComponent'
 }
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { dialogsMap } from 'src/app/shared/dialogs';
 
+import { dialogsMap } from 'src/app/shared/dialogs';
 import { Dialog, DialogOptions } from '../models';
 
 @Injectable({
@@ -9,14 +9,14 @@ import { Dialog, DialogOptions } from '../models';
 })
 export class DialogService {
   private defaultDialogOptions: DialogOptions = {
-    type: Dialog.DialogComponent,
+    type: Dialog.ConfirmationDialogComponent,
     content: 'Are you sure?',
     confirmText: 'Ok',
     cancelText: 'Cancel'
   };
   private defaultDialogConfig: MatDialogConfig = {
-    height: '600px',
-    width: '600px',
+    height: '300px',
+    width: '300px',
     panelClass: 'custom-dialog'
   };
 
