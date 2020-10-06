@@ -1,0 +1,19 @@
+.card,
+.card-add {
+  height: 90%;
+  width: 90%;
+}
+
+.card {
+  &-spacer {
+    flex: 1 1 auto;
+  }
+}
+
+.card-add {
+  background: rgba(0, 0, 0, 0.1);
+
+  &-input {
+    width: 100%;
+  }
+}

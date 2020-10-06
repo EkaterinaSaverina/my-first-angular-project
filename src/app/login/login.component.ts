@@ -21,10 +21,6 @@ export class LoginComponent implements OnInit {
     private notificationsService: NotificationsService,
   ) { }
 
-  get isFieldEmpty(): boolean {
-    return this.formGroup.get('email' || 'name' || 'password').hasError('required');
-  }
-
   async submitForm(): Promise<void> {
     try {
       if (this.isLogin) {
@@ -32,7 +28,7 @@ export class LoginComponent implements OnInit {
       } else {
         await this.register();
       }
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['']);
     }
     catch (error) {
       this.errorToShow = error.message;
@@ -43,6 +39,10 @@ export class LoginComponent implements OnInit {
   changeForm(isLogin: boolean): void {
     this.isLogin = isLogin;
     this.initializeForm();
+  }
+
+  isFieldEmpty(field: string): boolean {
+    return this.formGroup.get(field).hasError('required');
   }
 
   ngOnInit(): void {

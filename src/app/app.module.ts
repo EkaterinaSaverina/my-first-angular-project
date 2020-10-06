@@ -8,9 +8,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AppRoutingModule } from './app-routing.module';
-import { MaterialModule } from '../app/shared/material.module';
-import { HeaderModule } from './header/header.module';
 import { AppHttpInterceptor } from './core/services/http.interceptor';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -25,8 +24,7 @@ import { AppHttpInterceptor } from './core/services/http.interceptor';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    MaterialModule,
-    HeaderModule,
+    SharedModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AppHttpInterceptor, multi: true },

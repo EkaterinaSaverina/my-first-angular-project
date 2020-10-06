@@ -1,0 +1,6 @@
+{
+    "prettier.htmlWhitespaceSensitivity": "strict",
+    "prettier.printWidth": 120,
+    "prettier.singleQuote": true,
+    "prettier.trailingComma": "none"
+}
