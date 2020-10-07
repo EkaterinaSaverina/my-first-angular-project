@@ -1,37 +1,36 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
+import { AngularFireDatabase } from '@angular/fire/database';
 
-import { ApiService } from './api.service';
 import { Board } from '../models';
+import { DatabaseService } from './database.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BoardService extends ApiService {
-  private _boards$ = new BehaviorSubject<Board[]>([]);
+export class BoardService extends DatabaseService  {
 
-  public readonly boards$ = this._boards$.asObservable();
-
-  constructor(http: HttpClient) {
-    super(http);
+  constructor(database: AngularFireDatabase) {
+    super(database);
   }
 
-  get boards(): Board[] {
-    return this._boards$.getValue();
+  getBoards(): Observable<Board[]> {
+    return this.list<Board>('/boards');
   }
 
-  async sendBoardsRequest(): Promise<void> {
-    const { boards } = await this.get<{ boards: Board[] }>('boards');
-    this._boards$.next(boards);
+  getBoard(boardId: string): Observable<Board> {
+    return this.object<Board>(`/boards/${boardId}`);
   }
 
   async addBoard(title: string): Promise<void> {
-    this._boards$.next([...this.boards, { title } as Board]);
-    await this.post('boards', { title });
+    return this.push<Board>('/boards', { title });
   }
 
-  async deleteBoard(boardId: string): Promise<Board> {
-    return await this.delete(`boards/${boardId}`);
+  async updateBoard(boardId: string, title: string): Promise<void> {
+    return this.update<Board>(`/boards/${boardId}/title`, title);
+  }
+
+  async deleteBoard(boardId: string): Promise<void> {
+    await this.remove<Board>(`/boards/${boardId}`);
   }
 }

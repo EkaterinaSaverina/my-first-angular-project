@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
 
 import { Board } from '../core/models';
-import { BoardService, DialogService, NotificationsService } from '../core/services';
+import { BoardService, DialogService } from '../core/services';
 import { trackById } from '../core/utils';
 
 @Component({
@@ -11,32 +13,24 @@ import { trackById } from '../core/utils';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  boardId: string;
+  board$: Observable<Board>;
   boards$: Observable<Board[]>;
   trackById = trackById;
-  errorToShow: string;
 
   constructor(
     private boardService: BoardService,
-    private notificationsService: NotificationsService,
     private dialogService: DialogService,
-  ) {
-    this.getBoards();
-  }
+    private activatedRoute: ActivatedRoute,
+  ) { }
 
   async addBoard(boardTitle: string): Promise<void> {
+    if (!boardTitle) { return; }
     await this.boardService.addBoard(boardTitle);
-    this.getBoards();
   }
 
   async handleBoardDelete(boardId: string): Promise<void> {
-    try {
-      await this.boardService.deleteBoard(boardId);
-      this.getBoards();
-    }
-    catch (error) {
-      this.errorToShow = error.message;
-      this.notificationsService.openSnackBar(this.errorToShow, 'close');
-    }
+    await this.boardService.deleteBoard(boardId);
   }
 
   openDialog(boardId: string): void {
@@ -46,10 +40,17 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.boards$ = this.boardService.boards$;
-  }
+    this.boards$ = this.boardService.getBoards();
 
-  private getBoards(): void {
-    this.boardService.sendBoardsRequest();
+    const boardId$: Observable<string> = this.activatedRoute.params
+      .pipe(
+        map(params => params.boardId),
+        distinctUntilChanged(),
+        filter(boardId => !!boardId),
+        tap(boardId => this.boardId = boardId)
+      );
+
+    this.board$ = boardId$
+      .pipe(switchMap((boardId) => this.boardService.getBoard(boardId)));
   }
 }

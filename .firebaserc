@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "wallet-4448f": {
+      "hosting": {
+        "my-first-angular-project": [
+          "wallet-4448f"
+        ]
+      }
+    }
+  }
+}
