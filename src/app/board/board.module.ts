@@ -4,9 +4,13 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { BoardRoutingModule } from './board-routing.module';
 import { BoardComponent } from './board.component';
+import { ColumnComponent } from './column/column.component';
 
 @NgModule({
-  declarations: [BoardComponent],
+  declarations: [
+    BoardComponent,
+    // ColumnComponent
+  ],
   imports: [
     CommonModule,
     SharedModule,

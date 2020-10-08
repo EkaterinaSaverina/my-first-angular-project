@@ -17,6 +17,12 @@ const routes: Routes = [
       import('./login/login.module').then(m => m.LoginModule),
   },
   {
+    path: 'board/:boardId',
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./board/board.module').then(m => m.BoardModule),
+  },
+  {
     path: '**',
     component: PageNotFoundComponent
   },

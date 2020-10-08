@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap, map, distinctUntilChanged, filter, tap } from 'rxjs/operators';
 
-import { Column } from '../core/models';
-import { BoardService, ColumnService } from '../core/services';
+import { Column } from '../../core/models';
+import { BoardService, ColumnService } from '../../core/services';
 
 @Component({
   selector: 'app-column',

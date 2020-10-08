@@ -14,16 +14,16 @@ export class ColumnService extends DatabaseService  {
     super(database);
   }
 
-  getColumns(): Observable<Column[]> {
-    return this.list<Column>('/columns');
+  getColumns(boardId: string): Observable<Column[]> {
+    return this.list<Column>(`/columns/${boardId}`);
   }
 
   getColumn(columnId: string): Observable<Column> {
     return this.object<Column>(`/columns/${columnId}`);
   }
 
-  async addColumn(title: string): Promise<void> {
-    return this.push<Column>('/columns', { title });
+  async addColumn(boardId: string, title: string): Promise<void> {
+    return this.push<Column>(`/columns/${boardId}`, { title });
   }
 
   async updateColumn(columnId: string, title: string): Promise<void> {

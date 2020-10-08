@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap, map, distinctUntilChanged, filter, tap } from 'rxjs/operators';
 
@@ -19,18 +19,12 @@ export class BoardComponent implements OnInit {
   constructor(
     private boardService: BoardService,
     private columnService: ColumnService,
-    private router: Router,
     private activatedRoute: ActivatedRoute
   ) { }
 
   addColumn(title: string): void {
     if (!title) { return; }
-    this.columnService.addColumn(title);
-  }
-
-  openBoard(board: Board): void {
-    const boardId = board ? board._id : null;
-    this.router.navigate(['/board', { _id: boardId }]);
+    this.columnService.addColumn(this.boardId, title);
   }
 
   ngOnInit(): void {
@@ -45,6 +39,6 @@ export class BoardComponent implements OnInit {
     this.board$ = boardId$
       .pipe(switchMap((boardId) => this.boardService.getBoard(boardId)));
     this.columns$ = boardId$
-      .pipe(switchMap(() => this.columnService.getColumns()));
+      .pipe(switchMap((boardId) => this.columnService.getColumns(boardId)));
   }
 }
