@@ -18,19 +18,19 @@ export class ColumnService extends DatabaseService  {
     return this.list<Column>(`/columns/${boardId}`);
   }
 
-  getColumn(columnId: string): Observable<Column> {
-    return this.object<Column>(`/columns/${columnId}`);
+  getColumn(boardId: string): Observable<Column> {
+    return this.object<Column>(`/columns/${boardId}`);
   }
 
-  async addColumn(boardId: string, title: string): Promise<void> {
-    return this.push<Column>(`/columns/${boardId}`, { title });
+  async addColumn(columnId: string, title: string): Promise<void> {
+    return this.push<Column>(`/columns/${columnId}`, { title });
   }
 
   async updateColumn(columnId: string, title: string): Promise<void> {
     return this.update<Column>(`/columns/${columnId}/title`, title);
   }
 
-  async deleteColumn(columnId: string): Promise<void> {
-    await this.remove<Column>(`/columns/${columnId}`);
+  async deleteColumn(boardId: string, columnId: string): Promise<void> {
+    await this.remove<Column>(`/columns/${boardId}/${columnId}`);
   }
 }

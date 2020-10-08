@@ -1,1 +1,31 @@
-<p>board works!</p>
+<mat-grid-list cols="4" rowHeight="200px">
+    <mat-grid-tile *ngFor="let column of columns$ | async; trackBy: trackById">
+      <mat-card class="card">
+        <mat-card-header>
+          <mat-card-title>{{ column.title }}</mat-card-title>
+          <span class="card-spacer"></span>
+          <mat-icon (click)="openDialog(column._id)">close</mat-icon>
+        </mat-card-header>
+        <mat-card-actions>
+          <button mat-button>open</button>
+          <button mat-button>update</button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card class="card-add">
+        <mat-form-field class="card-input">
+          <mat-label>Please enter column title</mat-label>
+          <input matInput #columnTitle />
+        </mat-form-field>
+        <button
+          mat-stroked-button
+          color="primary"
+          (click)="addColumn(columnTitle.value)"
+        >
+          Add column
+        </button>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+  

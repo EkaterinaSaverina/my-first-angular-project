@@ -15,6 +15,10 @@ export class HeaderComponent {
     private router: Router,
   ) { }
 
+  home(): void {
+    this.router.navigate(['']);
+  }
+
   logOut(): void {
     this.authService.logOut();
     this.router.navigate(['/login']);

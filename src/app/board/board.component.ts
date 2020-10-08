@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 import { switchMap, map, distinctUntilChanged, filter, tap } from 'rxjs/operators';
 
 import { Board, Column } from '../core/models';
-import { BoardService, ColumnService } from '../core/services';
+import { BoardService, ColumnService, DialogService } from '../core/services';
+import { trackById } from '../core/utils';
 
 @Component({
   selector: 'app-board',
@@ -15,16 +16,28 @@ export class BoardComponent implements OnInit {
   boardId: string;
   board$: Observable<Board>;
   columns$: Observable<Column[]>;
+  trackById = trackById;
 
   constructor(
     private boardService: BoardService,
     private columnService: ColumnService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private dialogService: DialogService,
   ) { }
 
-  addColumn(title: string): void {
+  async addColumn(title: string): Promise<void> {
     if (!title) { return; }
-    this.columnService.addColumn(this.boardId, title);
+    await this.columnService.addColumn(this.boardId, title);
+  }
+
+  async handleColumnDelete(сolumnId: string): Promise<void> {
+    await this.columnService.deleteColumn(this.boardId, сolumnId);
+  }
+
+  openDialog(сolumnId: string): void {
+    this.dialogService.openDialog({
+      onConfirm: () => this.handleColumnDelete(сolumnId)
+    });
   }
 
   ngOnInit(): void {

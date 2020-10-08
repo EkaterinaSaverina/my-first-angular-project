@@ -6,8 +6,15 @@
         <span class="card-spacer"></span>
         <mat-icon (click)="openDialog(board._id)">close</mat-icon>
       </mat-card-header>
+      <mat-content>
+        <mat-form-field class="card-input">
+          <mat-label>Please enter board title</mat-label>
+          <input matInput #boardTitleChange />
+        </mat-form-field>
+      </mat-content>
       <mat-card-actions>
-        <button mat-button>open</button>
+        <button mat-button (click)="openBoard(board._id)">open</button>
+        <button mat-button (click)="updateBoard(board._id)">update</button>
       </mat-card-actions>
     </mat-card>
   </mat-grid-tile>

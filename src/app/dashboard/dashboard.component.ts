@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
 
@@ -22,11 +22,18 @@ export class DashboardComponent implements OnInit {
     private boardService: BoardService,
     private dialogService: DialogService,
     private activatedRoute: ActivatedRoute,
+    private router: Router,
   ) { }
 
   async addBoard(boardTitle: string): Promise<void> {
     if (!boardTitle) { return; }
     await this.boardService.addBoard(boardTitle);
+  }
+
+  async updateBoard(boardTitleChange: string): Promise<void> {
+    console.log(boardTitleChange);
+    if (!boardTitleChange) { return; }
+    await this.boardService.updateBoard(this.boardId, boardTitleChange);
   }
 
   async handleBoardDelete(boardId: string): Promise<void> {
@@ -37,6 +44,11 @@ export class DashboardComponent implements OnInit {
     this.dialogService.openDialog({
       onConfirm: () => this.handleBoardDelete(boardId)
     });
+  }
+
+  openBoard(boardId: string): void {
+    if (!boardId) { return; }
+    this.router.navigate([`/boards/:${boardId}`]);
   }
 
   ngOnInit(): void {
