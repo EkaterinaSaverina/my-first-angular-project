@@ -35,6 +35,10 @@ export class DatabaseService {
     await this.database.object<T>(path).update(data);
   }
 
+  async set<T>(path: string, data: any): Promise<void> {
+    await this.database.object<T>(path).set(data);
+  }
+
   async remove<T>(path: string): Promise<void> {
     await this.database.object<T>(path).remove();
   }

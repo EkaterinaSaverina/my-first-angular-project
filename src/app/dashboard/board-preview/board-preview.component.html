@@ -1,20 +1,25 @@
 <mat-card class="card">
   <mat-card-header>
     <mat-card-title>{{ title }}</mat-card-title>
+    <!-- <mat-card-title (click)="onChangeMode(false)">{{ title }}</mat-card-title> -->
     <span class="card-spacer"></span>
     <mat-icon (click)="onClose.emit()">close</mat-icon>
   </mat-card-header>
   <mat-card-content>
     <mat-form-field class="card-input">
+      <!-- <mat-form-field class="card-input" (click)="onChangeMode(true)"> -->
       <mat-label>Please enter board title</mat-label>
-      <input matInput #columnNewTitle [value]="title" />
+      <input matInput #boardNewTitle [value]="title" />
     </mat-form-field>
   </mat-card-content>
   <mat-card-actions>
+    <button mat-flat-button color="primary" (click)="onOpen.emit()">
+      open
+    </button>
     <button
       mat-flat-button
       color="accent"
-      (click)="onUpdate.emit(columnNewTitle.value)"
+      (click)="onUpdate.emit(boardNewTitle.value)"
     >
       update
     </button>

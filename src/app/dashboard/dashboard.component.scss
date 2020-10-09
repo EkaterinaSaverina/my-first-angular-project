@@ -1,19 +1,13 @@
-.card,
-.card-add {
-  height: 90%;
+app-board-preview {
+  height: 95%;
   width: 90%;
 }
 
-.card {
-  &-spacer {
-    flex: 1 1 auto;
-  }
-}
-
 .card-add {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 90%;
+  width: 90%;
   background: rgba(0, 0, 0, 0.1);
-
-  &-input {
-    width: 100%;
-  }
 }

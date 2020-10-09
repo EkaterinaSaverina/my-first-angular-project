@@ -30,6 +30,11 @@ export class BoardComponent implements OnInit {
     await this.columnService.addColumn(this.boardId, title);
   }
 
+  async setColumn(columnId: string, columnNewTitle: string): Promise<void> {
+    if (!columnId && !columnNewTitle) { return; }
+    await this.columnService.setColumn(this.boardId, columnId, columnNewTitle);
+  }
+
   async handleColumnDelete(сolumnId: string): Promise<void> {
     await this.columnService.deleteColumn(this.boardId, сolumnId);
   }

@@ -26,9 +26,8 @@ export class BoardService extends DatabaseService  {
     return this.push<Board>('/boards', { title });
   }
 
-  async updateBoard(boardId: string, title: string): Promise<void> {
-    console.log(title);
-    return this.update<Board>(`/boards/${boardId}/title`, title);
+  async setBoard(boardId: string, title: string): Promise<void> {
+    return this.set<Board>(`/boards/${boardId}/title`, title);
   }
 
   async deleteBoard(boardId: string): Promise<void> {

@@ -8,7 +8,7 @@ import { DatabaseService } from './database.service';
 @Injectable({
   providedIn: 'root'
 })
-export class ColumnService extends DatabaseService  {
+export class ColumnService extends DatabaseService {
 
   constructor(database: AngularFireDatabase) {
     super(database);
@@ -26,8 +26,8 @@ export class ColumnService extends DatabaseService  {
     return this.push<Column>(`/columns/${columnId}`, { title });
   }
 
-  async updateColumn(columnId: string, title: string): Promise<void> {
-    return this.update<Column>(`/columns/${columnId}/title`, title);
+  async setColumn(boardId: string, columnId: string, title: string): Promise<void> {
+    return this.set<Column>(`/columns/${boardId}/${columnId}/title`, title);
   }
 
   async deleteColumn(boardId: string, columnId: string): Promise<void> {
