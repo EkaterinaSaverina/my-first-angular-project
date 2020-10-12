@@ -14,10 +14,11 @@ import { trackById } from '../core/utils';
 })
 export class DashboardComponent implements OnInit {
   boardId: string;
+  boardTitle: string;
+  isEditMode = true;
+  trackById = trackById;
   board$: Observable<Board>;
   boards$: Observable<Board[]>;
-  trackById = trackById;
-  isEditMode = true;
 
   constructor(
     private boardService: BoardService,
@@ -26,9 +27,10 @@ export class DashboardComponent implements OnInit {
     private router: Router,
   ) { }
 
-  async addBoard(boardTitle: string): Promise<void> {
-    if (!boardTitle) { return; }
-    await this.boardService.addBoard(boardTitle);
+  async addBoard(): Promise<void> {
+    if (!this.boardTitle) { return; }
+    await this.boardService.addBoard(this.boardTitle);
+    this.clear();
   }
 
   async setBoard(boardId: string, boardNewTitle: string): Promise<void> {
@@ -40,6 +42,10 @@ export class DashboardComponent implements OnInit {
     await this.boardService.deleteBoard(boardId);
   }
 
+  clear(): string {
+    return this.boardTitle = '';
+  }
+
   openDialog(boardId: string): void {
     this.dialogService.openDialog({
       onConfirm: () => this.handleBoardDelete(boardId)
@@ -49,11 +55,6 @@ export class DashboardComponent implements OnInit {
   openBoard(boardId: string): void {
     if (!boardId) { return; }
     this.router.navigate([`/boards/${boardId}`]);
-  }
-
-  changeMode(isEditMode: boolean): void {
-    console.log(isEditMode);
-    this.isEditMode = isEditMode;
   }
 
   ngOnInit(): void {

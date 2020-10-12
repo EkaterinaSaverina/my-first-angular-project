@@ -14,6 +14,7 @@ import { trackById } from '../core/utils';
 })
 export class BoardComponent implements OnInit {
   boardId: string;
+  columnTitle: string;
   board$: Observable<Board>;
   columns$: Observable<Column[]>;
   trackById = trackById;
@@ -25,9 +26,10 @@ export class BoardComponent implements OnInit {
     private dialogService: DialogService,
   ) { }
 
-  async addColumn(title: string): Promise<void> {
-    if (!title) { return; }
-    await this.columnService.addColumn(this.boardId, title);
+  async addColumn(): Promise<void> {
+    if (!this.columnTitle) { return; }
+    await this.columnService.addColumn(this.boardId, this.columnTitle);
+    this.clear();
   }
 
   async setColumn(columnId: string, columnNewTitle: string): Promise<void> {
@@ -37,6 +39,10 @@ export class BoardComponent implements OnInit {
 
   async handleColumnDelete(сolumnId: string): Promise<void> {
     await this.columnService.deleteColumn(this.boardId, сolumnId);
+  }
+
+  clear(): string {
+    return this.columnTitle = '';
   }
 
   openDialog(сolumnId: string): void {

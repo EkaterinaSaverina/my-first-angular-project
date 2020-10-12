@@ -16,7 +16,7 @@ import { BoardPreviewComponent } from './board-preview/board-preview.component';
     CommonModule,
     FormsModule,
     SharedModule,
-    DashboardRoutingModule
+    DashboardRoutingModule,
   ]
 })
 export class DashboardModule { }

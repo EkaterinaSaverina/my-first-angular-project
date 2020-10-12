@@ -13,12 +13,12 @@
     <mat-card class="card-add">
       <mat-form-field class="card-input">
         <mat-label>Please enter column title</mat-label>
-        <input matInput #columnTitle />
+        <input matInput [(ngModel)]="columnTitle" />
       </mat-form-field>
       <button
         mat-stroked-button
         color="primary"
-        (click)="addColumn(columnTitle.value)"
+        (click)="addColumn()"
       >
         Add column
       </button>

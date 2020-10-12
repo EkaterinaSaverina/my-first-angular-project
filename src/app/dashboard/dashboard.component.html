@@ -5,24 +5,19 @@
       [id]="board._id"
       (onClose)="openDialog(board._id)"
       (onOpen)="openBoard(board._id)"
-      (onUpdate)="setBoard(board._id, $event)"
     >
-    
-    <!-- (onChangeMode)="changeMode($event)" -->
-
     </app-board-preview>
   </mat-grid-tile>
   <mat-grid-tile>
     <mat-card class="card-add">
       <mat-form-field>
         <mat-label>Please enter board title</mat-label>
-        <input matInput #boardTitle />
-        <!-- <input matInput #boardTitle [(ng-model)]="boardTitle"/> -->
+        <input matInput [(ngModel)]="boardTitle" />
       </mat-form-field>
       <button
         mat-stroked-button
         color="primary"
-        (click)="addBoard(boardTitle.value)"
+        (click)="addBoard()"
       >
         Add board
       </button>
