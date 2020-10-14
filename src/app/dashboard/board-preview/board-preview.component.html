@@ -2,26 +2,26 @@
   <mat-card-header>
     <mat-card-title
       *ngIf="!isEditMode; else showInput"
-      (click)="isEditMode = true; boardNewTitle.focus()"
+      (click)="changeEditMode()"
     >
       {{ title }}
     </mat-card-title>
-    <ng-template #showInput>
-      <mat-card-content>
-        <mat-form-field class="card-input">
-          <mat-label>Please enter board title</mat-label>
-          <input
-            matInput
-            #boardNewTitle
-            [value]="title"
-            (blur)="isEditMode = false"
-          />
-        </mat-form-field>
-      </mat-card-content>
-    </ng-template>
     <span class="card-spacer"></span>
     <mat-icon (click)="onClose.emit()">close</mat-icon>
   </mat-card-header>
+  <ng-template #showInput>
+    <mat-card-content>
+      <mat-form-field class="card-input">
+        <mat-label>Please enter board title</mat-label>
+        <input
+          matInput
+          #boardNewTitle
+          [value]="title"
+          (blur)="updateTitle(boardNewTitle.value)"
+        />
+      </mat-form-field>
+    </mat-card-content>
+  </ng-template>
   <mat-card-actions>
     <button mat-flat-button color="primary" (click)="onOpen.emit()">
       open

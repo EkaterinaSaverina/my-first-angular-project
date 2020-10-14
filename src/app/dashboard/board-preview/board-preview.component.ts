@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-board-preview',
@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class BoardPreviewComponent {
   @Input() title: string;
   @Input() id: string;
+  @ViewChild('boardNewTitle') boardNewTitle: ElementRef;
 
   @Output() onClose = new EventEmitter<void>();
   @Output() onOpen = new EventEmitter<void>();
@@ -17,4 +18,15 @@ export class BoardPreviewComponent {
 
   constructor() { }
 
+  changeEditMode(): void {
+    this.isEditMode = true;
+    setTimeout(() => {
+      this.boardNewTitle.nativeElement.focus();
+    });
+  }
+
+  updateTitle(boardNewTitle: string): void {
+    this.onUpdate.emit(boardNewTitle);
+    this.isEditMode = false;
+  }
 }

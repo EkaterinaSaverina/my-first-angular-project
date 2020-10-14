@@ -1,5 +1,8 @@
-<mat-grid-list cols="4" rowHeight="200px">
-  <mat-grid-tile *ngFor="let column of columns$ | async; trackBy: trackById">
+<main class="column-list">
+  <section
+    *ngFor="let column of columns$ | async; trackBy: trackById"
+    class="column-list-section"
+  >
     <app-column
       [title]="column.title"
       [id]="column._id"
@@ -8,20 +11,16 @@
       (onUpdate)="setColumn(column._id, $event)"
     >
     </app-column>
-  </mat-grid-tile>
-  <mat-grid-tile>
+  </section>
+  <section class="column-list-section">
     <mat-card class="card-add">
       <mat-form-field class="card-input">
         <mat-label>Please enter column title</mat-label>
         <input matInput [(ngModel)]="columnTitle" />
       </mat-form-field>
-      <button
-        mat-stroked-button
-        color="primary"
-        (click)="addColumn()"
-      >
+      <button mat-stroked-button color="primary" (click)="addColumn()">
         Add column
       </button>
     </mat-card>
-  </mat-grid-tile>
-</mat-grid-list>
+  </section>
+</main>

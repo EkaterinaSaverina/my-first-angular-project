@@ -5,6 +5,7 @@
       [id]="board._id"
       (onClose)="openDialog(board._id)"
       (onOpen)="openBoard(board._id)"
+      (onUpdate)="setBoard(board._id, $event)"
     >
     </app-board-preview>
   </mat-grid-tile>

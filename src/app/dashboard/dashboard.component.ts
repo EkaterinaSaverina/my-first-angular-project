@@ -39,6 +39,7 @@ export class DashboardComponent implements OnInit {
   }
 
   async handleBoardDelete(boardId: string): Promise<void> {
+    if (!boardId) { return; }
     await this.boardService.deleteBoard(boardId);
   }
 
@@ -47,6 +48,7 @@ export class DashboardComponent implements OnInit {
   }
 
   openDialog(boardId: string): void {
+    if (!boardId) { return; }
     this.dialogService.openDialog({
       onConfirm: () => this.handleBoardDelete(boardId)
     });
