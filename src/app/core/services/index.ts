@@ -6,3 +6,4 @@ export * from './notifications.service';
 export * from './dialog.service';
 export * from './database.service';
 export * from './column.service';
+export * from './user.service';

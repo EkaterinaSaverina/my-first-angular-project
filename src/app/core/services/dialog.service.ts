@@ -22,7 +22,7 @@ export class DialogService {
 
   constructor(public dialog: MatDialog) { }
 
-  openDialog(dialogOptions: DialogOptions, dialogConfig?: MatDialogConfig): void {
+  openDialog(dialogOptions?: DialogOptions, dialogConfig?: MatDialogConfig): void {
     const data = {
       ...this.defaultDialogOptions,
       ...dialogOptions

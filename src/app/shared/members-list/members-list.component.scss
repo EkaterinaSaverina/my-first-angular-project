@@ -1,0 +1,14 @@
+@import "../../../styles.scss";
+
+.member-icon {
+  padding-left: 4px;
+  font-size: 36px;
+}
+
+.color-faded {
+  color: $color-faded;
+
+  &:hover {
+    color: $color-background-brand;
+  }
+}

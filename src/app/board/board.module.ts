@@ -9,7 +9,7 @@ import { ColumnComponent } from './column/column.component';
 @NgModule({
   declarations: [
     BoardComponent,
-    ColumnComponent
+    ColumnComponent,
   ],
   imports: [
     CommonModule,

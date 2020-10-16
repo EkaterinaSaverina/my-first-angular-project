@@ -11,7 +11,7 @@ export class DatabaseService {
 
   constructor(private database: AngularFireDatabase) { }
 
-  list<T>(path: string): Observable<T[]> {
+  list<T>(path: string, query?: any): Observable<T[]> {
     return this.database.list<T>(path).snapshotChanges()
       .pipe(map(actions => actions.map(action => ({
         ...action.payload.val(),

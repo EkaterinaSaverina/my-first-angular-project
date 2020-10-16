@@ -1,8 +1,7 @@
-.card {
+.board-preview {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 180px;
 
   &-spacer {
     flex: 1 1 auto;
@@ -11,13 +10,18 @@
   &-input {
     width: 84%;
   }
-}
 
-mat-card-actions {
-  display: flex;
-  justify-content: center;
+  &-icon {
+    padding-left: 4px;
+    font-size: 36px;
+  }
 
-  button {
-    margin: 12px;
+  mat-card-actions {
+    display: flex;
+    justify-content: center;
+
+    button {
+      margin: 12px;
+    }
   }
 }

@@ -1,0 +1,14 @@
+<mat-card-content>
+  <button mat-icon-button color="primary" aria-label="account_circle">
+    <mat-icon class="member-icon">account_circle</mat-icon>
+  </button>
+  <button mat-icon-button color="primary" aria-label="add_circle_outline">
+    <mat-icon
+      color="primary"
+      class="member-icon color-faded"
+      (onAddMember)="addMember.emit()"
+    >
+      add_circle_outline
+    </mat-icon>
+  </button>
+</mat-card-content>

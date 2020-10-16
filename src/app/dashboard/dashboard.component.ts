@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
 
 import { Board } from '../core/models';
-import { BoardService, DialogService } from '../core/services';
+import { BoardService, DialogService, UserService } from '../core/services';
 import { trackById } from '../core/utils';
 
 @Component({
@@ -13,6 +13,7 @@ import { trackById } from '../core/utils';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  userId: string;
   boardId: string;
   boardTitle: string;
   isEditMode = true;
@@ -21,6 +22,7 @@ export class DashboardComponent implements OnInit {
   boards$: Observable<Board[]>;
 
   constructor(
+    private userService: UserService,
     private boardService: BoardService,
     private dialogService: DialogService,
     private activatedRoute: ActivatedRoute,
@@ -60,7 +62,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.boards$ = this.boardService.getBoards();
+    this.boards$ = this.userService.getCurrentUserBoards(this.userId);
 
     const boardId$: Observable<string> = this.activatedRoute.params
       .pipe(

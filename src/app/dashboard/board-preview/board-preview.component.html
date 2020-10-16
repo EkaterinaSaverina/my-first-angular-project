@@ -1,4 +1,4 @@
-<mat-card class="card">
+<mat-card class="board-preview">
   <mat-card-header>
     <mat-card-title
       *ngIf="!isEditMode; else showInput"
@@ -6,12 +6,12 @@
     >
       {{ title }}
     </mat-card-title>
-    <span class="card-spacer"></span>
+    <span class="board-preview-spacer"></span>
     <mat-icon (click)="onClose.emit()">close</mat-icon>
   </mat-card-header>
   <ng-template #showInput>
     <mat-card-content>
-      <mat-form-field class="card-input">
+      <mat-form-field class="board-preview-input">
         <mat-label>Please enter board title</mat-label>
         <input
           matInput
@@ -22,6 +22,10 @@
       </mat-form-field>
     </mat-card-content>
   </ng-template>
+  <app-members-list>
+    [id]="board._id"
+    (onAdd)="onAddMember.emit()"    
+  </app-members-list>
   <mat-card-actions>
     <button mat-flat-button color="primary" (click)="onOpen.emit()">
       open

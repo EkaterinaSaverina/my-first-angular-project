@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { AuthService, NotificationsService } from '../core/services';
 import { User } from '../core/models';
+import { UserService } from '../core/services';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private userService: UserService,
     private router: Router,
     private notificationsService: NotificationsService,
   ) { }
@@ -62,13 +64,12 @@ export class LoginComponent implements OnInit {
 
   private async login(): Promise<void> {
     const data = this.formGroup.value;
-
     await this.authService.login(data as User);
   }
 
   private async register(): Promise<void> {
     const data = this.formGroup.value;
-
     await this.authService.register(data as User);
+    await this.userService.addUserToDatabase(data);
   }
 }
