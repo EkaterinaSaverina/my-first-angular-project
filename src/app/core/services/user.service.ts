@@ -14,6 +14,10 @@ export class UserService extends DatabaseService {
     super(database);
   }
 
+  getCurrentUserEmail(): Observable<User[]> {
+    return this.list('/users', ref => ref.orderByChild(`users/email`).equalTo('kate@gmail.com'));
+  }
+
   getCurrentUserBoards(userId: string): Observable<Board[]> {
     return this.list('/boards', ref => ref.orderByChild(`members/${userId}`).equalTo(true));
   }
