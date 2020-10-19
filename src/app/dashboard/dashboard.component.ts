@@ -15,7 +15,7 @@ import { trackById } from '../core/utils';
 export class DashboardComponent implements OnInit {
   userId: string;
   boardId: string;
-  boardTitle: string;
+  boardNewTitle: string;
   isEditMode = true;
   trackById = trackById;
   board$: Observable<Board>;
@@ -30,8 +30,8 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   async addBoard(): Promise<void> {
-    if (!this.boardTitle) { return; }
-    await this.boardService.addBoard(this.boardTitle);
+    if (!this.boardNewTitle) { return; }
+    await this.boardService.addBoard(this.boardNewTitle);
     this.clear();
   }
 
@@ -46,7 +46,7 @@ export class DashboardComponent implements OnInit {
   }
 
   clear(): string {
-    return this.boardTitle = '';
+    return this.boardNewTitle = '';
   }
 
   openDialog(boardId: string): void {

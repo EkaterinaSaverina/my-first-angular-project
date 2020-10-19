@@ -1,3 +1,5 @@
+@import "../../styles.scss";
+
 app-board-preview {
   height: 95%;
   width: 90%;
@@ -9,5 +11,5 @@ app-board-preview {
   justify-content: space-between;
   height: 90%;
   width: 90%;
-  background: rgba(0, 0, 0, 0.1);
+  background: $color-faded;
 }
