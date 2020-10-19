@@ -16,9 +16,9 @@
     <mat-card class="card-add">
       <mat-form-field class="card-input">
         <mat-label>Please enter column title</mat-label>
-        <input matInput [(ngModel)]="columnTitle" />
+        <input matInput [(ngModel)]="columnNewTitle" />
       </mat-form-field>
-      <button mat-stroked-button color="primary" (click)="addColumn()">
+      <button mat-raised-button color="primary" (click)="addColumn()">
         Add column
       </button>
     </mat-card>

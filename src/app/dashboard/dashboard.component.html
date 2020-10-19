@@ -13,10 +13,10 @@
     <mat-card class="card-add">
       <mat-form-field>
         <mat-label>Please enter board title</mat-label>
-        <input matInput [(ngModel)]="boardTitle" />
+        <input matInput [(ngModel)]="boardNewTitle" />
       </mat-form-field>
       <button
-        mat-stroked-button
+        mat-raised-button 
         color="primary"
         (click)="addBoard()"
       >
