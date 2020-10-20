@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { DatabaseService } from './database.service';
-import { Board, User } from '../models';
+import { User } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +15,13 @@ export class UserService extends DatabaseService {
     super(database);
   }
 
-  getCurrentUserEmail(): Observable<User[]> {
-    return this.list('/users', ref => ref.orderByChild(`users/email`).equalTo('kate@gmail.com'));
-  }
-
-  getCurrentUserBoards(userId: string): Observable<Board[]> {
-    return this.list('/boards', ref => ref.orderByChild(`members/${userId}`).equalTo(true));
+  getCurrentUser(email: string): Observable<User> {
+    return this.list<User>('/users', ref => ref.orderByChild('email').equalTo(`${email}`))
+      .pipe(
+        map((users) => {
+          return users[0];
+        }
+        ));
   }
 
   async addUserToDatabase(userData: string): Promise<void> {

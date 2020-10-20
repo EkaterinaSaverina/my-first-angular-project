@@ -2,6 +2,7 @@
   <mat-card-header>
     <mat-card-title
       *ngIf="!isEditMode; else showInput"
+      class="board-preview-title"
       (click)="changeEditMode()"
     >
       {{ title }}
@@ -10,7 +11,7 @@
     <mat-icon (click)="onClose.emit()">close</mat-icon>
   </mat-card-header>
   <ng-template #showInput>
-    <mat-card-content>
+    <mat-card-content class="board-preview-content">
       <mat-form-field>
         <mat-label>Please enter board title</mat-label>
         <input
