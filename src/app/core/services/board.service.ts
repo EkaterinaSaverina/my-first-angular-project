@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { Board, User } from '../models';
+import { Board } from '../models';
 import { DatabaseService } from './database.service';
 import { UserService } from './user.service';
 
@@ -11,7 +11,6 @@ import { UserService } from './user.service';
   providedIn: 'root'
 })
 export class BoardService extends DatabaseService {
-  userEmail: string;
 
   constructor(
     database: AngularFireDatabase,
@@ -41,15 +40,15 @@ export class BoardService extends DatabaseService {
   }
 
   getCurrentUserBoardsByEmail(): Observable<Board[]> {
-    return this.userService.getCurrentUser(this.userEmail)
+    return this.userService.getCurrentUser()
       .pipe(
-        switchMap((user) => {
+        switchMap(user => {
           return this.list<Board>('/boards', ref => ref.orderByChild(`members/${user._id}`).equalTo(true));
         })
       );
   }
 
-  getCurrentUserBoardsById(user: User): Observable<Board[]> {
-    return this.list<Board>('/boards', ref => ref.orderByChild(`members/${user._id}`).equalTo(true));
+  getCurrentUserBoardsById(userId: string): Observable<Board[]> {
+    return this.list<Board>('/boards', ref => ref.orderByChild(`members/${userId}`).equalTo(true));
   }
 }

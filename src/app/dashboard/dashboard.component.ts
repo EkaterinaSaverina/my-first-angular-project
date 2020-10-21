@@ -13,7 +13,6 @@ import { trackById } from '../core/utils';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  userEmail: string;
   boardId: string;
   boardNewTitle: string;
   isEditMode = true;
@@ -72,6 +71,6 @@ export class DashboardComponent implements OnInit {
       );
 
     this.board$ = boardId$
-      .pipe(switchMap((boardId) => this.boardService.getBoard(boardId)));
+      .pipe(switchMap(boardId => this.boardService.getBoard(boardId)));
   }
 }

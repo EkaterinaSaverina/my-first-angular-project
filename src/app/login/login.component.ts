@@ -65,6 +65,7 @@ export class LoginComponent implements OnInit {
   private async login(): Promise<void> {
     const data = this.formGroup.value;
     await this.authService.login(data as User);
+    await this.userService.addUserToDatabase(data);
   }
 
   private async register(): Promise<void> {

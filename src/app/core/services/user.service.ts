@@ -10,21 +10,23 @@ import { User } from '../models';
   providedIn: 'root'
 })
 export class UserService extends DatabaseService {
+  userEmail: string;
 
   constructor(database: AngularFireDatabase) {
     super(database);
   }
 
-  getCurrentUser(email: string): Observable<User> {
-    return this.list<User>('/users', ref => ref.orderByChild('email').equalTo(`${email}`))
+  async addUserToDatabase(userData: User): Promise<void> {
+    this.userEmail = userData.email;
+    await this.push<User>('/users', userData);
+  }
+
+  getCurrentUser(): Observable<User> {
+    return this.list<User>('/users', ref => ref.orderByChild('email').equalTo(`${this.userEmail}`))
       .pipe(
-        map((users) => {
+        map(users => {
           return users[0];
         }
         ));
-  }
-
-  async addUserToDatabase(userData: string): Promise<void> {
-    await this.push<User>('/users', userData);
   }
 }
