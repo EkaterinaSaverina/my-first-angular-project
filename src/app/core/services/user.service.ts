@@ -18,7 +18,17 @@ export class UserService extends DatabaseService {
 
   async addUserToDatabase(userData: User): Promise<void> {
     this.userEmail = userData.email;
-    await this.push<User>('/users', userData);
+    this.list<User>('/users', ref => ref.orderByChild('email').equalTo(this.userEmail))
+      .pipe(
+        map(users => {
+          if (users.length === 0) {
+            return this.push<User>('/users', {
+              email: userData.email,
+              name: userData.name || null,
+            });
+          }
+        }
+        ));
   }
 
   getCurrentUser(): Observable<User> {

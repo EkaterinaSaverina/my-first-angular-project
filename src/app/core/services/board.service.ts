@@ -28,11 +28,11 @@ export class BoardService extends DatabaseService {
   }
 
   async addBoard(title: string): Promise<void> {
-    return this.push<Board>('/boards', { title });
+    await this.push<Board>('/boards', { title });
   }
 
   async setBoard(boardId: string, title: string): Promise<void> {
-    return this.set<Board>(`/boards/${boardId}/title`, title);
+    await this.set<Board>(`/boards/${boardId}/title`, title);
   }
 
   async deleteBoard(boardId: string): Promise<void> {
@@ -43,7 +43,9 @@ export class BoardService extends DatabaseService {
     return this.userService.getCurrentUser()
       .pipe(
         switchMap(user => {
-          return this.list<Board>('/boards', ref => ref.orderByChild(`members/${user._id}`).equalTo(true));
+          if (typeof user._id !== undefined) {
+            return this.list<Board>('/boards', ref => ref.orderByChild(`members/${user._id}`).equalTo(true));
+          }
         })
       );
   }
