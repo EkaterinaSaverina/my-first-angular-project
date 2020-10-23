@@ -12,6 +12,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   exports: [
@@ -27,6 +28,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatCardModule,
     MatGridListModule,
     MatDialogModule,
+    MatAutocompleteModule,
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline', floatLabel: 'always' } }

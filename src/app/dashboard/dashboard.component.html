@@ -7,8 +7,6 @@
       (onOpen)="openBoard(board._id)"
       (onUpdate)="setBoard(board._id, $event)"
     >
-      <app-members-list (onAddMember)="openDialog(board._id)">
-      </app-members-list>
     </app-board-preview>
   </mat-grid-tile>
   <mat-grid-tile>
@@ -17,11 +15,7 @@
         <mat-label>Please enter board title</mat-label>
         <input matInput [(ngModel)]="boardNewTitle" />
       </mat-form-field>
-      <button
-        mat-raised-button 
-        color="primary"
-        (click)="addBoard()"
-      >
+      <button mat-raised-button color="primary" (click)="addBoard()">
         Add board
       </button>
     </mat-card>

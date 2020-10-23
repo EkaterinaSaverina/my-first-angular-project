@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { DialogService } from '../../core/services';
 
@@ -7,15 +7,20 @@ import { DialogService } from '../../core/services';
   templateUrl: './members-list.component.html',
   styleUrls: ['./members-list.component.scss']
 })
-export class MembersListComponent {
-  @Input() id: string;
+export class MembersListComponent implements OnInit {
+  boardId: string;
 
-  @Output() onAdd = new EventEmitter<void>();
+  constructor(
+    private dialogService: DialogService,
+  ) { }
 
-  constructor(private dialogService: DialogService) { }
-
-  addMember(boardId: string): void {
+  openMemberDialog(boardId: string): void {
     if (!boardId) { return; }
-    this.dialogService.openDialog();
+    this.dialogService.openDialog({
+      onConfirm: () => alert(boardId)
+    });
   }
+
+  ngOnInit(): void { }
+
 }

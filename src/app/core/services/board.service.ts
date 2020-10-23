@@ -45,6 +45,8 @@ export class BoardService extends DatabaseService {
         switchMap(user => {
           if (typeof user._id !== undefined) {
             return this.list<Board>('/boards', ref => ref.orderByChild(`members/${user._id}`).equalTo(true));
+          } else {
+            return this.list<Board>('/boards');
           }
         })
       );

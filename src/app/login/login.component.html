@@ -7,33 +7,39 @@
     >
       Sign In
     </mat-button-toggle>
-    <mat-button-toggle
-    class="registration-tabs"
-    (click)="changeForm(false)"
-    >
+    <mat-button-toggle class="registration-tabs" (click)="changeForm(false)">
       Sign Up
     </mat-button-toggle>
   </mat-button-toggle-group>
-
   <form [formGroup]="formGroup" (submit)="submitForm()">
     <mat-form-field class="registration-input">
       <mat-label>Please enter your email</mat-label>
-      <input matInput formControlName="email" />
+      <input
+        matInput
+        formControlName="email"
+        [formControl]="autocompleteControl"
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option
+          *ngFor="let option of filteredOptions | async"
+          [value]="option"
+        >
+          {{ option }}
+        </mat-option>
+      </mat-autocomplete>
       <mat-error *ngIf="isFieldEmpty('email')">This Field Required</mat-error>
     </mat-form-field>
-
     <mat-form-field class="registration-input" *ngIf="!isLogin">
       <mat-label>Please enter your name</mat-label>
       <input matInput formControlName="name" />
       <mat-error *ngIf="isFieldEmpty('name')">This Field Required</mat-error>
     </mat-form-field>
-
     <mat-form-field class="registration-input">
       <mat-label>Please enter your password</mat-label>
       <input matInput type="password" formControlName="password" />
       <mat-error *ngIf="isFieldEmpty('password')">This Field Required</mat-error>
     </mat-form-field>
-
     <button
       *ngIf="isLogin"
       mat-raised-button
@@ -44,7 +50,6 @@
     >
       Log In
     </button>
-
     <button
       *ngIf="!isLogin"
       mat-raised-button

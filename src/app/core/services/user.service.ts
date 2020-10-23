@@ -26,7 +26,18 @@ export class UserService extends DatabaseService {
               email: userData.email,
               name: userData.name || null,
             });
+          } else {
+            return this.set<User>(`/users/${users[0]._id}/email`, users[0].email);
           }
+        }
+        ));
+  }
+
+  getUsers(): Observable<User[]> {
+    return this.list<User>('/users', ref => ref.orderByChild('email'))
+      .pipe(
+        map(users => {
+          return users[0].email;
         }
         ));
   }
