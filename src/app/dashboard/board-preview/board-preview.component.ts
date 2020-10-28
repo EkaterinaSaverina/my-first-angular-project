@@ -1,5 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 
+import { Members } from '../../core/models';
+
 @Component({
   selector: 'app-board-preview',
   templateUrl: './board-preview.component.html',
@@ -8,6 +10,7 @@ import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@
 export class BoardPreviewComponent {
   @Input() title: string;
   @Input() id: string;
+  @Input() members: Members;
   @ViewChild('boardNewTitle') boardNewTitle: ElementRef;
 
   @Output() onClose = new EventEmitter<void>();

@@ -3,6 +3,7 @@
     <app-board-preview
       [title]="board.title"
       [id]="board._id"
+      [members]="board.members"
       (onClose)="openDialog(board._id)"
       (onOpen)="openBoard(board._id)"
       (onUpdate)="setBoard(board._id, $event)"

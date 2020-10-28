@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 import { DatabaseService } from './database.service';
 import { User } from '../models';
@@ -10,43 +11,42 @@ import { User } from '../models';
   providedIn: 'root'
 })
 export class UserService extends DatabaseService {
-  userEmail: string;
 
-  constructor(database: AngularFireDatabase) {
+  constructor(
+    database: AngularFireDatabase,
+    private router: Router,
+  ) {
     super(database);
   }
 
   async addUserToDatabase(userData: User): Promise<void> {
-    this.userEmail = userData.email;
-    this.list<User>('/users', ref => ref.orderByChild('email').equalTo(this.userEmail))
-      .pipe(
-        map(users => {
-          if (users.length === 0) {
-            return this.push<User>('/users', {
-              email: userData.email,
-              name: userData.name || null,
-            });
-          } else {
-            return this.set<User>(`/users/${users[0]._id}/email`, users[0].email);
-          }
-        }
-        ));
+    const users = await this.list<User>('/users', ref => ref.orderByChild('email').equalTo(userData.email))
+      .pipe(take(1)).toPromise();
+    if (users.length === 0) {
+      const userId = await this.push<User>('/users', {
+        email: userData.email,
+        name: userData.name || null,
+      });
+      localStorage.setItem('userId', userId);
+    } else {
+      const userId = users[0]._id;
+      localStorage.setItem('userId', userId);
+    }
   }
 
-  getUsers(): Observable<User[]> {
-    return this.list<User>('/users', ref => ref.orderByChild('email'))
-      .pipe(
-        map(users => {
-          return users[0].email;
-        }
-        ));
+  getUserId(): string {
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      this.router.navigate(['login']);
+    }
+    return userId;
   }
 
-  getCurrentUser(): Observable<User> {
-    return this.list<User>('/users', ref => ref.orderByChild('email').equalTo(`${this.userEmail}`))
+  getUsersEmails(): Observable<string[]> {
+    return this.list<User>('/users')
       .pipe(
         map(users => {
-          return users[0];
+          return users.map(user => user.email);
         }
         ));
   }

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 
 import { Board } from '../models';
 import { DatabaseService } from './database.service';
@@ -39,17 +38,9 @@ export class BoardService extends DatabaseService {
     await this.remove<Board>(`/boards/${boardId}`);
   }
 
-  getCurrentUserBoardsByEmail(): Observable<Board[]> {
-    return this.userService.getCurrentUser()
-      .pipe(
-        switchMap(user => {
-          if (typeof user._id !== undefined) {
-            return this.list<Board>('/boards', ref => ref.orderByChild(`members/${user._id}`).equalTo(true));
-          } else {
-            return this.list<Board>('/boards');
-          }
-        })
-      );
+  getCurrentUserBoards(): Observable<Board[]> {
+    const userId = this.userService.getUserId();
+    return this.list<Board>('/boards', ref => ref.orderByChild(`members/${userId}`).equalTo(true));
   }
 
   getCurrentUserBoardsById(userId: string): Observable<Board[]> {

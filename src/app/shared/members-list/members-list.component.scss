@@ -1,11 +1,12 @@
 @import "../../../styles.scss";
 
-.member-icon {
-  padding-left: 4px;
+.member-icon,
+.member-add-icon {
   font-size: 36px;
 }
 
-.color-faded {
+.member-add-icon {
+  padding-left: 12px;
   color: $color-faded;
 
   &:hover {

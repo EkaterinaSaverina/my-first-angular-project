@@ -27,8 +27,8 @@ export class DatabaseService {
       })));
   }
 
-  async push<T>(path: string, data: any): Promise<void> {
-    await this.database.list<T>(path).push(data);
+  async push<T>(path: string, data: any): Promise<string> {
+    return (await this.database.list<T>(path).push(data)).key;
   }
 
   async update<T>(path: string, data: any): Promise<void> {

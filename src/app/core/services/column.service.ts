@@ -22,7 +22,7 @@ export class ColumnService extends DatabaseService {
     return this.object<Column>(`/columns/${boardId}`);
   }
 
-  async addColumn(columnId: string, title: string): Promise<void> {
+  async addColumn(columnId: string, title: string): Promise<string> {
     return this.push<Column>(`/columns/${columnId}`, { title });
   }
 

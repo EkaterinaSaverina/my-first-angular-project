@@ -1,14 +1,16 @@
 <mat-card-content>
-  <button mat-icon-button color="primary" aria-label="account_circle">
-    <mat-icon class="member-icon">account_circle</mat-icon>
-  </button>
-  <button mat-icon-button color="primary" aria-label="add_circle_outline">
-    <mat-icon
-      color="primary"
-      class="member-icon color-faded"
-      (click)="openMemberDialog(board._id)"
-    >
-      add_circle_outline
-    </mat-icon>
-  </button>
+  <mat-icon
+    *ngFor="let member of members | keyvalue"
+    color="primary"
+    class="member-icon"
+  >
+    account_circle
+  </mat-icon>
+  <mat-icon
+    color="primary"
+    class="member-add-icon"
+    (click)="openMemberDialog()"
+  >
+    add_circle_outline
+  </mat-icon>
 </mat-card-content>

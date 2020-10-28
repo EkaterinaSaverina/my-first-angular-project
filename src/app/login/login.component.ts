@@ -2,11 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
 
 import { User } from '../core/models';
-import { AuthService, NotificationsService } from '../core/services';
-import { UserService } from '../core/services';
+import { AuthService, NotificationsService, UserService } from '../core/services';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +16,7 @@ export class LoginComponent implements OnInit {
   formGroup: FormGroup;
   errorToShow: string;
   autocompleteControl = new FormControl();
-  options: string[] = ['ek@mail.ru', 'kate@gmail.com', '15@mail.ru'];
+  options$: Observable<string[]>;
   filteredOptions: Observable<string[]>;
 
   constructor(
@@ -37,11 +35,6 @@ export class LoginComponent implements OnInit {
     if (!this.isLogin) {
       this.formGroup.addControl('name', new FormControl('', { validators: [Validators.required] }));
     }
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
   private async login(): Promise<void> {
@@ -82,12 +75,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForm();
-    // this.options = this.userService.getUsers();
-    this.filteredOptions = this.autocompleteControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
-
+    this.options$ = this.userService.getUsersEmails();
   }
 }

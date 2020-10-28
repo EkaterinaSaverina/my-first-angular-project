@@ -61,8 +61,9 @@ export class BoardComponent implements OnInit {
       );
 
     this.board$ = boardId$
-      .pipe(switchMap((boardId) => this.boardService.getBoard(boardId)));
+      .pipe(switchMap(boardId => this.boardService.getBoard(boardId)));
+
     this.columns$ = boardId$
-      .pipe(switchMap((boardId) => this.columnService.getColumns(boardId)));
+      .pipe(switchMap(boardId => this.columnService.getColumns(boardId)));
   }
 }

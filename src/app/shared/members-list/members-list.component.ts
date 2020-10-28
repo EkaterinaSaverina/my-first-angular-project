@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 
+import { Members } from '../../core/models';
 import { DialogService } from '../../core/services';
 
 @Component({
@@ -7,20 +8,16 @@ import { DialogService } from '../../core/services';
   templateUrl: './members-list.component.html',
   styleUrls: ['./members-list.component.scss']
 })
-export class MembersListComponent implements OnInit {
-  boardId: string;
+export class MembersListComponent implements OnChanges {
+  @Input() members: Members;
 
   constructor(
     private dialogService: DialogService,
   ) { }
 
-  openMemberDialog(boardId: string): void {
-    if (!boardId) { return; }
-    this.dialogService.openDialog({
-      onConfirm: () => alert(boardId)
-    });
+  openMemberDialog(): void {
+    this.dialogService.openDialog();
   }
 
-  ngOnInit(): void { }
-
+  ngOnChanges(): void { }
 }
