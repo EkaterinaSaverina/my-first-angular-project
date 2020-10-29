@@ -9,6 +9,6 @@ export interface DialogOptions {
     content?: string;
     confirmText?: string;
     cancelText?: string;
-    onConfirm?: () => void;
+    onConfirm?: (email?: string) => void;
     onCancel?: () => void;
 }

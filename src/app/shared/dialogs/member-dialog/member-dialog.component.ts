@@ -12,7 +12,7 @@ export class MemberDialogComponent {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogOptions) { }
 
-  confirm(): void {
-    this.data?.onConfirm();
+  confirm(enteredEmail: string): void {
+    this.data?.onConfirm(enteredEmail);
   }
 }

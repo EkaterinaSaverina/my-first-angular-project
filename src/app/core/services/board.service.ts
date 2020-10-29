@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 
-import { Board } from '../models';
+import { Board, Members } from '../models';
 import { DatabaseService } from './database.service';
 import { UserService } from './user.service';
 
@@ -36,6 +36,10 @@ export class BoardService extends DatabaseService {
 
   async deleteBoard(boardId: string): Promise<void> {
     await this.remove<Board>(`/boards/${boardId}`);
+  }
+
+  async addUserAsMember(boardId: string): Promise<void> {
+    await this.push<Members>(`/boards/${boardId}/members`, true);
   }
 
   getCurrentUserBoards(): Observable<Board[]> {
