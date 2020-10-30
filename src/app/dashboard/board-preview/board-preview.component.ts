@@ -16,6 +16,7 @@ export class BoardPreviewComponent {
   @Output() onClose = new EventEmitter<void>();
   @Output() onOpen = new EventEmitter<void>();
   @Output() onUpdate = new EventEmitter<string>();
+  @Output() onMemberAdd = new EventEmitter<string>();
 
   isEditMode = false;
 

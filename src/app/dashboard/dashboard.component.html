@@ -7,6 +7,7 @@
       (onClose)="openDialog(board._id)"
       (onOpen)="openBoard(board._id)"
       (onUpdate)="setBoard(board._id, $event)"
+      (onMemberAdd)="addMember(board._id, $event)"
     >
     </app-board-preview>
   </mat-grid-tile>

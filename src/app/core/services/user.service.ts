@@ -34,6 +34,12 @@ export class UserService extends DatabaseService {
     }
   }
 
+  async getUserIdByEmail(email: string): Promise<string> {
+    const users = await this.list<User>('/users', ref => ref.orderByChild('email').equalTo(email))
+      .pipe(take(1)).toPromise();
+    return users ? users[0]._id : null;
+  }
+
   getUserId(): string {
     const userId = localStorage.getItem('userId');
     if (!userId) {

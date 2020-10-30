@@ -23,7 +23,11 @@
       </mat-form-field>
     </mat-card-content>
   </ng-template>
-  <app-members-list [members]="members"> </app-members-list>
+  <app-members-list
+    [members]="members"
+    (onMemberAdd)="onMemberAdd.emit($event)"
+  >
+  </app-members-list>
   <mat-card-actions>
     <button mat-flat-button color="primary" (click)="onOpen.emit()">
       open

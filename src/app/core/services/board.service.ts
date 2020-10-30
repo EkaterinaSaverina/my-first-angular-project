@@ -27,7 +27,9 @@ export class BoardService extends DatabaseService {
   }
 
   async addBoard(title: string): Promise<void> {
-    await this.push<Board>('/boards', { title });
+    const boardId = await this.push<Board>('/boards', { title });
+    const userId = this.userService.getUserId();
+    await this.updateUserMembers(boardId, userId);
   }
 
   async setBoard(boardId: string, title: string): Promise<void> {
@@ -38,8 +40,8 @@ export class BoardService extends DatabaseService {
     await this.remove<Board>(`/boards/${boardId}`);
   }
 
-  async addUserAsMember(boardId: string): Promise<void> {
-    await this.push<Members>(`/boards/${boardId}/members`, true);
+  async updateUserMembers(boardId: string, userId: string): Promise<void> {
+    await this.update<Members>(`/boards/${boardId}/members`, { [userId]: true });
   }
 
   getCurrentUserBoards(): Observable<Board[]> {

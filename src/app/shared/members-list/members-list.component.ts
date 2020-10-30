@@ -1,7 +1,7 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 
 import { Dialog, Members } from '../../core/models';
-import { BoardService, DialogService } from '../../core/services';
+import { DialogService, UserService } from '../../core/services';
 
 @Component({
   selector: 'app-members-list',
@@ -9,18 +9,21 @@ import { BoardService, DialogService } from '../../core/services';
   styleUrls: ['./members-list.component.scss']
 })
 export class MembersListComponent implements OnChanges {
-  @Input() id: string;
   @Input() members: Members;
+
+  @Output() onMemberAdd = new EventEmitter<string>();
 
   constructor(
     private dialogService: DialogService,
-    private boardService: BoardService,
+    private userService: UserService,
   ) { }
 
-  async addUserAsMember(email: string): Promise<void> {
+  async updateUserMembers(email: string): Promise<void> {
     if (!email) { return; }
-    console.log(email);
-    await this.boardService.addUserAsMember(email);
+    const userId = await this.userService.getUserIdByEmail(email);
+    if (!!userId) {
+      this.onMemberAdd.emit(userId);
+    }
   }
 
   openMemberDialog(): void {
@@ -28,7 +31,7 @@ export class MembersListComponent implements OnChanges {
       type: Dialog.MemberDialogComponent,
       content: 'Please enter an email',
       confirmText: 'Add',
-      onConfirm: (enteredEmail) => this.addUserAsMember(enteredEmail)
+      onConfirm: (enteredEmail) => this.updateUserMembers(enteredEmail),
     });
   }
 

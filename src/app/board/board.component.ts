@@ -41,6 +41,10 @@ export class BoardComponent implements OnInit {
     await this.columnService.deleteColumn(this.boardId, сolumnId);
   }
 
+  async addMember(userId: string): Promise<void> {
+    await this.boardService.updateUserMembers(this.boardId, userId);
+  }
+
   clear(): string {
     return this.columnNewTitle = '';
   }

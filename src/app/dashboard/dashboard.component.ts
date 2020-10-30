@@ -39,6 +39,10 @@ export class DashboardComponent implements OnInit {
     await this.boardService.deleteBoard(boardId);
   }
 
+  async addMember(boardId: string, userId: string): Promise<void> {
+    await this.boardService.updateUserMembers(boardId, userId);
+  }
+
   clear(): string {
     return this.boardNewTitle = '';
   }

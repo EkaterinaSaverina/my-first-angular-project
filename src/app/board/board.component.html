@@ -1,4 +1,8 @@
-<app-members-list [members]="(board$ | async)?.members"> </app-members-list>
+<app-members-list
+  [members]="(board$ | async)?.members"
+  (onMemberAdd)="addMember($event)"
+>
+</app-members-list>
 <main class="column-list">
   <section
     *ngFor="let column of columns$ | async; trackBy: trackById"
