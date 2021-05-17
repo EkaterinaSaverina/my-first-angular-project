@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
 
@@ -10,7 +10,8 @@ import { trackById } from '../core/utils';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent implements OnInit {
   boardId: string;
@@ -25,6 +26,7 @@ export class DashboardComponent implements OnInit {
     private dialogService: DialogService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
+    private ref: ChangeDetectorRef,
   ) { }
 
   async addBoard(): Promise<void> {
@@ -43,8 +45,9 @@ export class DashboardComponent implements OnInit {
     await this.boardService.deleteBoard(boardId);
   }
 
-  clear(): string {
-    return this.boardNewTitle = '';
+  clear(): void {
+    this.boardNewTitle = '';
+    this.ref.markForCheck();
   }
 
   openDialog(boardId: string): void {

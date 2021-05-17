@@ -4,33 +4,43 @@ import { AngularFireDatabase } from '@angular/fire/database';
 
 import { Column } from '../models';
 import { DatabaseService } from './database.service';
+import { FirestoreService } from './firestore.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ColumnService extends DatabaseService {
 
-  constructor(database: AngularFireDatabase) {
+  constructor(
+    database: AngularFireDatabase,
+    private firestoreService: FirestoreService
+  ) {
     super(database);
   }
 
   getColumns(boardId: string): Observable<Column[]> {
-    return this.list<Column>(`/columns/${boardId}`);
+    return this.firestoreService.getCollection(`/boards/${boardId}/columns`);
   }
 
   getColumn(boardId: string): Observable<Column> {
     return this.object<Column>(`/columns/${boardId}`);
+    // return this.firestoreService.getDocumentById('columns', boardId);
   }
 
-  async addColumn(columnId: string, title: string): Promise<void> {
-    return this.push<Column>(`/columns/${columnId}`, { title });
+  getColumnById(boardId: string, columnId: string): Observable<Column> {
+    return this.object<Column>(`/columns/${boardId}/${columnId}`);
+    // return this.firestoreService.getDocumentById(`/${boardId}/columns/${columnId}`);
+  }
+
+  async addColumn(columnId: string, title: string): Promise<string> {
+    return this.firestoreService.addDocument(`/boards/${columnId}/columns`, { title });
   }
 
   async setColumn(boardId: string, columnId: string, title: string): Promise<void> {
-    return this.set<Column>(`/columns/${boardId}/${columnId}/title`, title);
+    return this.firestoreService.update(`/boards/${boardId}/columns/${columnId}`, { title });
   }
 
   async deleteColumn(boardId: string, columnId: string): Promise<void> {
-    await this.remove<Column>(`/columns/${boardId}/${columnId}`);
+    return this.firestoreService.delete(`/boards/${boardId}/columns/${columnId}`);
   }
 }

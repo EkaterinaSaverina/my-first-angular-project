@@ -1,9 +1,10 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-board-preview',
   templateUrl: './board-preview.component.html',
-  styleUrls: ['./board-preview.component.scss']
+  styleUrls: ['./board-preview.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BoardPreviewComponent {
   @Input() title: string;
