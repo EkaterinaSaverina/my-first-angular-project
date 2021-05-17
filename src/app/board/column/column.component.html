@@ -22,4 +22,25 @@
       </mat-form-field>
     </mat-card-content>
   </ng-template>
+  <section
+    *ngFor="let task of tasks$ | async; trackBy: trackById"
+    class="column-list-section"
+  >
+    <app-task 
+      [title]="task.title" 
+      [id]="task.id"
+    >
+    </app-task>
+  </section>
+  <section>
+    <mat-card class="card-add">
+      <mat-form-field class="card-input">
+        <mat-label>Please enter task title</mat-label>
+        <input matInput [(ngModel)]="taskNewTitle" />
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="addTask()">
+        Add task
+      </button>
+    </mat-card>
+  </section>
 </mat-card>

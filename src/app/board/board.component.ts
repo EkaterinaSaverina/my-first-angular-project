@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap, map, distinctUntilChanged, filter, tap } from 'rxjs/operators';
@@ -10,7 +10,8 @@ import { trackById } from '../core/utils';
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
-  styleUrls: ['./board.component.scss']
+  styleUrls: ['./board.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BoardComponent implements OnInit {
   boardId: string;
@@ -24,6 +25,7 @@ export class BoardComponent implements OnInit {
     private columnService: ColumnService,
     private activatedRoute: ActivatedRoute,
     private dialogService: DialogService,
+    private ref: ChangeDetectorRef,
   ) { }
 
   async addColumn(): Promise<void> {
@@ -41,8 +43,9 @@ export class BoardComponent implements OnInit {
     await this.columnService.deleteColumn(this.boardId, сolumnId);
   }
 
-  clear(): string {
-    return this.columnNewTitle = '';
+  clear(): void {
+    this.columnNewTitle = '';
+    this.ref.markForCheck();
   }
 
   openDialog(сolumnId: string): void {

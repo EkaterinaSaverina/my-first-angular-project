@@ -4,33 +4,37 @@ import { AngularFireDatabase } from '@angular/fire/database';
 
 import { Board } from '../models';
 import { DatabaseService } from './database.service';
+import { FirestoreService } from './firestore.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BoardService extends DatabaseService  {
+export class BoardService extends DatabaseService {
 
-  constructor(database: AngularFireDatabase) {
+  constructor(
+    database: AngularFireDatabase,
+    private firestoreService: FirestoreService
+  ) {
     super(database);
   }
 
   getBoards(): Observable<Board[]> {
-    return this.list<Board>('/boards');
+    return this.firestoreService.getCollection('boards');
   }
 
   getBoard(boardId: string): Observable<Board> {
-    return this.object<Board>(`/boards/${boardId}`);
+    return this.firestoreService.getDocumentById('boards', boardId);
   }
 
-  async addBoard(title: string): Promise<void> {
-    return this.push<Board>('/boards', { title });
+  async addBoard(title: string): Promise<string> {
+    return this.firestoreService.addDocument('boards', { title });
   }
 
   async setBoard(boardId: string, title: string): Promise<void> {
-    return this.set<Board>(`/boards/${boardId}/title`, title);
+    return this.firestoreService.update(`boards/${boardId}`, { title });
   }
 
   async deleteBoard(boardId: string): Promise<void> {
-    await this.remove<Board>(`/boards/${boardId}`);
+    return this.firestoreService.delete(`/boards/${boardId}`);
   }
 }

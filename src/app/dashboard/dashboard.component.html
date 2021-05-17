@@ -1,11 +1,11 @@
-<mat-grid-list cols="4" rowHeight="200px">
+  <mat-grid-list cols="4" rowHeight="200px">
   <mat-grid-tile *ngFor="let board of boards$ | async; trackBy: trackById">
     <app-board-preview
       [title]="board.title"
-      [id]="board._id"
-      (onClose)="openDialog(board._id)"
-      (onOpen)="openBoard(board._id)"
-      (onUpdate)="setBoard(board._id, $event)"
+      [id]="board.id"
+      (onClose)="openDialog(board.id)"
+      (onOpen)="openBoard(board.id)"
+      (onUpdate)="setBoard(board.id, $event)"
     >
     </app-board-preview>
   </mat-grid-tile>

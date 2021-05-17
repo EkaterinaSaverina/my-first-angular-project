@@ -5,10 +5,9 @@
   >
     <app-column
       [title]="column.title"
-      [id]="column._id"
-      (onClose)="openDialog(column._id)"
-      (onOpen)="openColumn(column._id)"
-      (onUpdate)="setColumn(column._id, $event)"
+      [id]="column.id"
+      (onClose)="openDialog(column.id)"
+      (onUpdate)="setColumn(column.id, $event)"
     >
     </app-column>
   </section>

@@ -5,13 +5,12 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: 'AIzaSyB6qW_Nr5zq7OsJ8s1qwG1VhnEw4u14f5Y',
-    authDomain: 'wallet-4448f.firebaseapp.com',
-    databaseURL: 'https://wallet-4448f.firebaseio.com',
-    projectId: 'wallet-4448f',
-    storageBucket: 'wallet-4448f.appspot.com',
-    messagingSenderId: '911580613816',
-    appId: '1:911580613816:web:0dbe5de7ebb47b75a7784d'
+    apiKey: 'AIzaSyCxgBoYFIszEOT0djK7VuILlF1uDciavVk',
+    authDomain: 'my-first-angular-project-10952.firebaseapp.com',
+    projectId: 'my-first-angular-project-10952',
+    storageBucket: 'my-first-angular-project-10952.appspot.com',
+    messagingSenderId: '729420888997',
+    appId: '1:729420888997:web:87da76253e922b80aa064c'
   }
 };
 
